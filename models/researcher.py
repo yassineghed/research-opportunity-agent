@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass 
 class Researcher:
-    name: str
+    fullname: str
     institution: str
     research_domains: list[str]
     research_interests: list[str]
