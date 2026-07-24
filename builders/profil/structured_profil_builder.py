@@ -1,4 +1,4 @@
-from .base_builder import ProfileBuilder
+from .base_profil_builder import ProfileBuilder
 
 
 class StructuredProfileBuilder(ProfileBuilder):
