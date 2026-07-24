@@ -1,0 +1,365 @@
+[
+  {
+    "id": 1,
+    "title": "AI for Marine Ecosystem Monitoring Grant",
+    "type": "Funding",
+    "organization": "European Marine Research Foundation",
+    "description": "Supports research applying machine intelligence and image analysis to monitor marine biodiversity and coastal ecosystems.",
+    "keywords": [
+      "Machine Intelligence",
+      "Image Analysis",
+      "Marine Ecology"
+    ],
+    "topics": [
+      "Ocean Observation",
+      "Species Monitoring",
+      "Environmental Sustainability"
+    ],
+    "eligibility": "Researchers affiliated with universities or research institutes.",
+    "deadline": "2026-09-15"
+  },
+  {
+    "id": 2,
+    "title": "International Conference on Intelligent Vision Systems",
+    "type": "Conference",
+    "organization": "IEEE",
+    "description": "Conference focusing on image understanding, visual perception, and intelligent imaging technologies.",
+    "keywords": [
+      "Image Processing",
+      "Visual Recognition",
+      "Deep Neural Networks"
+    ],
+    "topics": [
+      "Computer Vision",
+      "Pattern Recognition",
+      "AI"
+    ],
+    "eligibility": "Open to researchers worldwide.",
+    "deadline": "2027-01-20"
+  },
+  {
+    "id": 3,
+    "title": "Global Fellowship in Language Intelligence",
+    "type": "Fellowship",
+    "organization": "Global AI Research Institute",
+    "description": "Supports research on language understanding, transformer architectures, and multilingual AI.",
+    "keywords": [
+      "Language Intelligence",
+      "Transformer Models",
+      "Text Understanding"
+    ],
+    "topics": [
+      "Natural Language Processing",
+      "Generative AI"
+    ],
+    "eligibility": "Early-career researchers.",
+    "deadline": "2026-11-30"
+  },
+  {
+    "id": 4,
+    "title": "Workshop on Arabic Language Technologies",
+    "type": "Conference",
+    "organization": "ACL SIGArabic",
+    "description": "Workshop dedicated to Arabic text analytics, information extraction, and language models.",
+    "keywords": [
+      "Arabic NLP",
+      "Information Extraction",
+      "Language Models"
+    ],
+    "topics": [
+      "Computational Linguistics",
+      "Text Mining"
+    ],
+    "eligibility": "Researchers and graduate students.",
+    "deadline": "2026-08-18"
+  },
+  {
+    "id": 5,
+    "title": "Data Analytics for Healthcare Grant",
+    "type": "Funding",
+    "organization": "European Health Innovation Council",
+    "description": "Funding projects using predictive analytics and data-driven decision making in healthcare.",
+    "keywords": [
+      "Predictive Analytics",
+      "Healthcare Data",
+      "Statistical Learning"
+    ],
+    "topics": [
+      "Health Informatics",
+      "Big Data"
+    ],
+    "eligibility": "Academic research groups.",
+    "deadline": "2027-03-10"
+  },
+  {
+    "id": 6,
+    "title": "Big Data Innovation Award",
+    "type": "Award",
+    "organization": "International Data Science Association",
+    "description": "Recognizes impactful research in large-scale data analysis and business intelligence.",
+    "keywords": [
+      "Business Intelligence",
+      "Large Scale Analytics",
+      "Data Mining"
+    ],
+    "topics": [
+      "Data Science",
+      "Analytics"
+    ],
+    "eligibility": "Researchers with published work.",
+    "deadline": "2026-12-01"
+  },
+  {
+    "id": 7,
+    "title": "Cyber Defense Research Collaboration",
+    "type": "Collaboration",
+    "organization": "European Cybersecurity Network",
+    "description": "International collaboration for research on cyber resilience, secure communications, and threat intelligence.",
+    "keywords": [
+      "Cyber Defense",
+      "Secure Networks",
+      "Threat Intelligence"
+    ],
+    "topics": [
+      "Cybersecurity",
+      "Cryptography"
+    ],
+    "eligibility": "Universities and public research labs.",
+    "deadline": "2027-05-01"
+  },
+  {
+    "id": 8,
+    "title": "Conference on Secure Computing Systems",
+    "type": "Conference",
+    "organization": "ACM",
+    "description": "Focuses on encryption, digital security, malware analysis, and secure software engineering.",
+    "keywords": [
+      "Encryption",
+      "Malware",
+      "Secure Computing"
+    ],
+    "topics": [
+      "Network Security",
+      "Information Security"
+    ],
+    "eligibility": "Researchers worldwide.",
+    "deadline": "2026-10-12"
+  },
+  {
+    "id": 9,
+    "title": "Autonomous Robotics Research Grant",
+    "type": "Funding",
+    "organization": "International Robotics Foundation",
+    "description": "Funding for intelligent robotics, autonomous navigation, and robotic manipulation.",
+    "keywords": [
+      "Autonomous Systems",
+      "Robot Navigation",
+      "Motion Planning"
+    ],
+    "topics": [
+      "Robotics",
+      "Automation"
+    ],
+    "eligibility": "Academic institutions.",
+    "deadline": "2027-02-14"
+  },
+  {
+    "id": 10,
+    "title": "Industrial Robotics Collaboration Program",
+    "type": "Collaboration",
+    "organization": "Robotics Europe",
+    "description": "Supports collaborative projects in manufacturing automation and intelligent robotics.",
+    "keywords": [
+      "Automation",
+      "Collaborative Robots",
+      "ROS"
+    ],
+    "topics": [
+      "Industrial Robotics",
+      "Control Systems"
+    ],
+    "eligibility": "Research teams and industry partners.",
+    "deadline": "2026-11-01"
+  },
+  {
+    "id": 11,
+    "title": "Genomic Data Science Fellowship",
+    "type": "Fellowship",
+    "organization": "International Bioinformatics Society",
+    "description": "Supports computational biology research involving genome analysis and protein prediction.",
+    "keywords": [
+      "Computational Biology",
+      "Genome Analysis",
+      "Proteomics"
+    ],
+    "topics": [
+      "Bioinformatics",
+      "Life Sciences"
+    ],
+    "eligibility": "PhD candidates and postdoctoral researchers.",
+    "deadline": "2027-04-15"
+  },
+  {
+    "id": 12,
+    "title": "Conference on Computational Biology",
+    "type": "Conference",
+    "organization": "ISCB",
+    "description": "International conference on genomics, sequence analysis, and biomedical data science.",
+    "keywords": [
+      "DNA Sequencing",
+      "Genome Informatics",
+      "Biological Data"
+    ],
+    "topics": [
+      "Bioinformatics",
+      "Genomics"
+    ],
+    "eligibility": "Researchers and students.",
+    "deadline": "2026-09-25"
+  },
+  {
+    "id": 13,
+    "title": "Renewable Energy Innovation Grant",
+    "type": "Funding",
+    "organization": "Green Energy Alliance",
+    "description": "Funding renewable power systems, sustainable energy technologies, and smart energy management.",
+    "keywords": [
+      "Green Energy",
+      "Solar Power",
+      "Energy Optimization"
+    ],
+    "topics": [
+      "Renewable Energy",
+      "Sustainability"
+    ],
+    "eligibility": "Universities and research centers.",
+    "deadline": "2027-06-01"
+  },
+  {
+    "id": 14,
+    "title": "Sustainable Energy Research Award",
+    "type": "Award",
+    "organization": "International Energy Society",
+    "description": "Award recognizing innovative work in sustainable energy and environmental technologies.",
+    "keywords": [
+      "Clean Energy",
+      "Energy Efficiency",
+      "Renewable Technologies"
+    ],
+    "topics": [
+      "Energy",
+      "Climate"
+    ],
+    "eligibility": "Researchers with significant publications.",
+    "deadline": "2026-12-20"
+  },
+  {
+    "id": 15,
+    "title": "French AI Research Collaboration",
+    "type": "Collaboration",
+    "organization": "Institut National de Recherche en Informatique",
+    "description": "Collaboration on intelligence artificielle, apprentissage profond and vision par ordinateur.",
+    "keywords": [
+      "Intelligence Artificielle",
+      "Apprentissage Profond",
+      "Vision"
+    ],
+    "topics": [
+      "Vision par ordinateur",
+      "IA"
+    ],
+    "eligibility": "French-speaking researchers.",
+    "deadline": "2027-03-30"
+  },
+  {
+    "id": 16,
+    "title": "Agricultural Drone Imaging Grant",
+    "type": "Funding",
+    "organization": "Smart Farming Europe",
+    "description": "Supports aerial imaging and remote sensing research for precision agriculture.",
+    "keywords": [
+      "Drone Imaging",
+      "Remote Observation",
+      "Precision Agriculture"
+    ],
+    "topics": [
+      "Agriculture",
+      "Environmental Monitoring"
+    ],
+    "eligibility": "Researchers in agriculture and AI.",
+    "deadline": "2026-07-30"
+  },
+  {
+    "id": 17,
+    "title": "Quantum Computing Summer School",
+    "type": "Conference",
+    "organization": "Quantum Future Initiative",
+    "description": "Educational event on quantum algorithms, quantum hardware, and quantum programming.",
+    "keywords": [
+      "Quantum Computing",
+      "Quantum Algorithms",
+      "Qubits"
+    ],
+    "topics": [
+      "Quantum Information",
+      "Physics"
+    ],
+    "eligibility": "Graduate students and researchers.",
+    "deadline": "2027-07-10"
+  },
+  {
+    "id": 18,
+    "title": "Ancient Archaeology Field Research Grant",
+    "type": "Funding",
+    "organization": "Mediterranean Heritage Foundation",
+    "description": "Supports archaeological excavations and preservation of ancient historical sites.",
+    "keywords": [
+      "Archaeology",
+      "Historical Sites",
+      "Excavation"
+    ],
+    "topics": [
+      "History",
+      "Cultural Heritage"
+    ],
+    "eligibility": "Researchers in archaeology and history.",
+    "deadline": "2026-10-01"
+  },
+  {
+    "id": 19,
+    "title": "International Musicology Research Fellowship",
+    "type": "Fellowship",
+    "organization": "Global Arts Council",
+    "description": "Supports research in music history, composition, and ethnomusicology.",
+    "keywords": [
+      "Music Theory",
+      "Composition",
+      "Ethnomusicology"
+    ],
+    "topics": [
+      "Arts",
+      "Humanities"
+    ],
+    "eligibility": "Researchers in arts and humanities.",
+    "deadline": "2027-09-15"
+  },
+  {
+    "id": 20,
+    "title": "Open Innovation Research Challenge",
+    "type": "Funding",
+    "organization": "International Research Council",
+    "description": "Multidisciplinary funding opportunity encouraging collaborations across AI, healthcare, sustainability, and cybersecurity.",
+    "keywords": [
+      "Artificial Intelligence",
+      "Healthcare",
+      "Cybersecurity",
+      "Sustainability"
+    ],
+    "topics": [
+      "Interdisciplinary Research",
+      "Innovation"
+    ],
+    "eligibility": "Open to all university researchers.",
+    "deadline": "2028-01-15"
+  }
+]

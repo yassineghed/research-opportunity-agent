@@ -1,6 +1,6 @@
-from models.researcher import Researcher
-from builders.profil.structured_profil_builder import StructuredProfileBuilder
-from builders.profil.natural_profil_builder import NaturalLanguageProfileBuilder
+from src.models.researcher import Researcher
+from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
+from src.builders.profil.natural_profil_builder import NaturalLanguageProfileBuilder
 
 
 """researcher = Researcher(
@@ -48,13 +48,13 @@ print("\n===== NATURAL LANGUAGE =====")
 print(
     natural_builder.build(researcher)
 )"""
-from models.opportunity import Opportunity
+from src.models.opportunity import Opportunity
 
-from builders.opportunity.structured_opportunity_builder import (
+from src.builders.opportunity.structured_opportunity_builder import (
     StructuredOpportunityBuilder
 )
 
-from builders.opportunity.natural_opportunity_builder import (
+from src.builders.opportunity.natural_opportunity_builder import (
     NaturalLanguageOpportunityBuilder
 )
 

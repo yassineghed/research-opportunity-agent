@@ -1,0 +1,217 @@
+[
+  {
+    "id": 1,
+    "name": "Yassine Ghedira",
+    "institution": "ISIMM",
+    "research_domains": [
+      "Artificial Intelligence",
+      "Computer Vision"
+    ],
+    "research_interests": [
+      "Marine Conservation",
+      "Underwater Monitoring"
+    ],
+    "skills": [
+      "Python",
+      "Deep Learning",
+      "YOLO",
+      "Machine Learning"
+    ],
+    "keywords": [
+      "Object Detection",
+      "Biodiversity",
+      "Remote Sensing"
+    ],
+    "publications": [
+      "Deep Learning methods for fish species detection",
+      "Computer vision approaches for marine monitoring"
+    ]
+  },
+
+
+  {
+    "id": 2,
+    "name": "Sara Ben Ali",
+    "institution": "University of Tunis",
+    "research_domains": [
+      "Natural Language Processing"
+    ],
+    "research_interests": [
+      "Large Language Models",
+      "Text Mining"
+    ],
+    "skills": [
+      "Python",
+      "Transformers",
+      "NLP"
+    ],
+    "keywords": [
+      "LLM",
+      "Information Retrieval",
+      "Language Models"
+    ],
+    "publications": [
+      "Transformer models for Arabic NLP"
+    ]
+  },
+
+    {
+        "id": 3,
+        "name": "Ahmed Ben Youssef",
+        "institution": "University of Sfax",
+        "research_domains": [
+        "Data Science",
+        "Big Data"
+        ],
+        "research_interests": [
+        "Data Analytics",
+        "Predictive Modeling"
+        ],
+        "skills": [
+        "R",
+        "Python",
+        "SQL",
+        "Machine Learning"
+        ],
+        "keywords": [
+        "Data Mining",
+        "Statistical Analysis",
+        "Predictive Analytics"
+        ],
+        "publications": [
+        "Big Data Analytics for Healthcare",
+        "Predictive Modeling in Finance"
+        ]
+    },
+    
+    {
+        "id": 4,
+        "name": "Leila Kacem",
+        "institution": "University of Carthage",
+        "research_domains": [
+        "Cybersecurity",
+        "Network Security"
+        ],
+        "research_interests": [
+        "Intrusion Detection Systems",
+        "Cryptography"
+        ],
+        "skills": [
+        "Python",
+        "C++",
+        "Network Security Tools"
+        ],
+        "keywords": [
+        "Cyber Threats",
+        "Encryption",
+        "Network Monitoring"
+        ],
+        "publications": [
+        "Advanced Intrusion Detection Techniques",
+        "Cryptographic Protocols for Secure Communication"
+        ]
+    },
+    
+    {
+        "id": 5,
+        "name": "Mohamed Ali",
+        "institution": "University of Sousse",
+        "research_domains": [
+        "Robotics",
+        "Control Systems"
+        ],
+        "research_interests": [
+        "Autonomous Vehicles",
+        "Robotic Manipulation"
+        ],
+        "skills": [
+        "MATLAB",
+        "ROS",
+        "C++"
+        ],
+        "keywords": [
+        "Path Planning",
+        "Robot Kinematics",
+        "Control Algorithms"
+        ],
+        "publications": [
+        "Autonomous Navigation for Mobile Robots",
+        "Control Strategies for Robotic Arms"
+        ]
+    },
+
+    {
+        "id": 6,
+        "name": "Nadia Chatti",
+        "institution": "University of Monastir",
+        "research_domains": [
+        "Bioinformatics"
+        ],
+        "research_interests": [
+        "Genomics",
+        "Protein Analysis"
+        ],
+        "skills": [
+        "Python",
+        "R",
+        "Biopython"
+        ],
+        "keywords": [
+        "DNA",
+        "Genomics",
+        "Proteomics"
+        ],
+        "publications": [
+        "Machine learning for genome sequence analysis"
+        ]
+    },
+    
+    {
+        "id": 7,
+        "name": "Hichem Trabelsi",
+        "institution": "University of Gabes",
+        "research_domains": [
+        "Renewable Energy",
+        "Sustainable Development"
+        ],
+        "research_interests": [
+        "Solar Energy",
+        "Wind Energy"
+        ],
+        "skills": [
+        "MATLAB",
+        "Energy Modeling",
+        "Data Analysis"
+        ],
+        "keywords": [
+        "Photovoltaics",
+        "Wind Turbines",
+        "Energy Efficiency"
+        ],
+        "publications": []
+    },
+
+    {
+        "id": 8,
+        "name": "Sonia Hamdi",
+        "institution": "Université de Tunis El Manar",
+        "research_domains": [
+            "Intelligence Artificielle"
+        ],
+        "research_interests": [
+            "Vision par ordinateur"
+        ],
+        "skills": [
+            "Python",
+            "TensorFlow"
+        ],
+        "keywords": [
+            "Apprentissage profond",
+            "Vision",
+            "IA"
+        ],
+        "publications": [
+            "Détection automatique des objets"
+        ]
+    }
+]
