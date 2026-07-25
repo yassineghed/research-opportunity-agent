@@ -1,4 +1,4 @@
-from src.models.researcher import Researcher
+from src.embeddings.embedder import Embedder
 from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
 from src.builders.profil.natural_profil_builder import NaturalLanguageProfileBuilder
 
@@ -82,6 +82,11 @@ builder = StructuredOpportunityBuilder()
 natural_builder = NaturalLanguageOpportunityBuilder()
 
 
-print(builder.build(opportunity))
-print("\n"+ "="*50 + "\n")
+
 print(natural_builder.build(opportunity))
+"""embedder = Embedder()
+
+vector = embedder.encode(natural_builder.build(opportunity))
+print(vector.shape)
+print(type(vector))
+print(vector[:5])"""
