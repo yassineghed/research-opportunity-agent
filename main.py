@@ -1,41 +1,94 @@
+from src.matching.ranker import OpportunityRanker
+from src.matching.similarity import SimilarityMatcher
 from src.embeddings.embedder import Embedder
 from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
 from src.builders.profil.natural_profil_builder import NaturalLanguageProfileBuilder
 
+from src.models.opportunity import Opportunity
 
-"""researcher = Researcher(
-    fullname="Yassine Ghedira",
-    institution="ISIMM",
-    research_domains=[
-        "Artificial Intelligence",
-        "Computer Vision"
-    ],
-    research_interests=[
-        "Marine Conservation",
-        "Underwater Species Monitoring"
-    ],
-    skills=[
-        "Python",
-        "Deep Learning",
-        "YOLO",
-        "Machine Learning"
-    ],
-    keywords=[
-        "Object Detection",
-        "Biodiversity",
-        "Remote Sensing"
-    ],
-    publications=[
-        "Deep Learning approaches for fish species detection"
-    ]
+from src.builders.opportunity.structured_opportunity_builder import (
+    StructuredOpportunityBuilder
+)
+
+from src.builders.opportunity.natural_opportunity_builder import (
+    NaturalLanguageOpportunityBuilder
+)
+
+from src.loaders import DataLoader
+
+researchers = DataLoader.load_researchers(
+    "data/mock/researchers.json"
+)
+
+opportunities = DataLoader.load_opportunities(
+    "data/mock/opportunities.json"
 )
 
 
+
 structured_builder = StructuredProfileBuilder()
+researcher_texts = []
 
-natural_builder = NaturalLanguageProfileBuilder()
+for researcher in researchers:
+    text = structured_builder.build(researcher)
+    researcher_texts.append(text)
+
+embedder = Embedder()
+researcher_vector = embedder.encode_batch(researcher_texts)
 
 
+opportunity_builder = NaturalLanguageOpportunityBuilder()
+
+
+opportunity_texts = []
+
+for opportunity in opportunities:
+    text = opportunity_builder.build(opportunity)
+    opportunity_texts.append(text)
+
+
+opp_vector = embedder.encode_batch(opportunity_texts)
+
+
+
+ranker = OpportunityRanker()
+
+"""
+recommendations = ranker.rank(
+    researcher_vector[0],
+    opp_vector,
+    opportunities
+)
+print(researcher_vector.shape)
+print(opp_vector.shape)
+
+for rec in recommendations[:5]:
+    print(rec)"""
+
+
+#### testing all the researchers 
+for i, researcher in enumerate(researchers):
+
+    recommendations = ranker.rank(
+        researcher_vector[i],
+        opp_vector,
+        opportunities
+    )
+
+    print("\n")
+    print("===================")
+    print(researcher.fullname)
+    print("===================")
+
+
+    for rec in recommendations[:3]:
+        print(
+            rec["title"],
+            "→",
+            round(rec["score"],3)
+        )
+
+"""
 print("===== STRUCTURED =====")
 
 print(
@@ -47,44 +100,13 @@ print("\n===== NATURAL LANGUAGE =====")
 
 print(
     natural_builder.build(researcher)
-)"""
-from src.models.opportunity import Opportunity
-
-from src.builders.opportunity.structured_opportunity_builder import (
-    StructuredOpportunityBuilder
 )
-
-from src.builders.opportunity.natural_opportunity_builder import (
-    NaturalLanguageOpportunityBuilder
-)
-
-
-opportunity = Opportunity(
-    title="AI for Ocean Monitoring Research Grant",
-    type="Funding Opportunity",
-    organization="European Marine Research Foundation",
-    description="Grant supporting AI and computer vision for marine biodiversity monitoring.",
-    keywords=[
-        "Artificial Intelligence",
-        "Computer Vision",
-        "Marine Biology"
-    ],
-    topics=[
-        "Ocean Monitoring",
-        "Species Detection"
-    ],
-    eligibility="Researchers and universities",
-    deadline="2026-12-15"
-)
-
 
 builder = StructuredOpportunityBuilder()
 natural_builder = NaturalLanguageOpportunityBuilder()
 
-
-
 print(natural_builder.build(opportunity))
-"""embedder = Embedder()
+embedder = Embedder()
 
 vector = embedder.encode(natural_builder.build(opportunity))
 print(vector.shape)

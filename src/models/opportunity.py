@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Opportunity:
+    id: int
     title: str
     type: str
     organization: str

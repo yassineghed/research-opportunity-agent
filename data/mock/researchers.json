@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Yassine Ghedira",
+    "fullname": "Yassine Ghedira",
     "institution": "ISIMM",
     "research_domains": [
       "Artificial Intelligence",
@@ -31,7 +31,7 @@
 
   {
     "id": 2,
-    "name": "Sara Ben Ali",
+    "fullname": "Sara Ben Ali",
     "institution": "University of Tunis",
     "research_domains": [
       "Natural Language Processing"
@@ -57,7 +57,7 @@
 
     {
         "id": 3,
-        "name": "Ahmed Ben Youssef",
+        "fullname": "Ahmed Ben Youssef",
         "institution": "University of Sfax",
         "research_domains": [
         "Data Science",
@@ -86,7 +86,7 @@
     
     {
         "id": 4,
-        "name": "Leila Kacem",
+        "fullname": "Leila Kacem",
         "institution": "University of Carthage",
         "research_domains": [
         "Cybersecurity",
@@ -114,7 +114,7 @@
     
     {
         "id": 5,
-        "name": "Mohamed Ali",
+        "fullname": "Mohamed Ali",
         "institution": "University of Sousse",
         "research_domains": [
         "Robotics",
@@ -142,7 +142,7 @@
 
     {
         "id": 6,
-        "name": "Nadia Chatti",
+        "fullname": "Nadia Chatti",
         "institution": "University of Monastir",
         "research_domains": [
         "Bioinformatics"
@@ -168,7 +168,7 @@
     
     {
         "id": 7,
-        "name": "Hichem Trabelsi",
+        "fullname": "Hichem Trabelsi",
         "institution": "University of Gabes",
         "research_domains": [
         "Renewable Energy",
@@ -193,7 +193,7 @@
 
     {
         "id": 8,
-        "name": "Sonia Hamdi",
+        "fullname": "Sonia Hamdi",
         "institution": "Université de Tunis El Manar",
         "research_domains": [
             "Intelligence Artificielle"

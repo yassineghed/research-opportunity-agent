@@ -28,9 +28,13 @@ class OpportunityRanker:
 
             results.append(
                 {
-                    "opportunity": opportunity,
+                    "opportunity_id": opportunity.id,
+                    "title": opportunity.title,
+                    "organization": opportunity.organization,
+                    "type": opportunity.type,
+                    "deadline": opportunity.deadline,
                     "score": score
-                }
+            }
             )
 
 
