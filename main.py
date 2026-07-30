@@ -33,11 +33,17 @@ for researcher in researchers:
     text = structured_builder.build(researcher)
     researcher_texts.append(text)
 
-embedder = Embedder()
-researcher_vector = embedder.encode_batch(researcher_texts)
+mini = Embedder(
+    "all-MiniLM-L6-v2"
+)
+
+bge = Embedder(
+    "BAAI/bge-small-en-v1.5"
+)
+researcher_vector = mini.encode_batch(researcher_texts)
 
 
-opportunity_builder = NaturalLanguageOpportunityBuilder()
+opportunity_builder = StructuredOpportunityBuilder()
 
 
 opportunity_texts = []
@@ -47,7 +53,7 @@ for opportunity in opportunities:
     opportunity_texts.append(text)
 
 
-opp_vector = embedder.encode_batch(opportunity_texts)
+opp_vector = mini.encode_batch(opportunity_texts)
 
 
 
@@ -76,9 +82,7 @@ for i, researcher in enumerate(researchers):
     )
 
     print("\n")
-    print("===================")
     print(researcher.fullname)
-    print("===================")
 
 
     for rec in recommendations[:3]:
