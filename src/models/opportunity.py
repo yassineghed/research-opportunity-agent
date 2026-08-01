@@ -11,3 +11,4 @@ class Opportunity:
     topics: list[str]
     eligibility: str
     deadline: str
+    url: str
