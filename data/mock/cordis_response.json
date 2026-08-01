@@ -1,0 +1,16 @@
+[
+    {
+        "title": "AI for Marine Ecosystem Monitoring",
+        "objective": "Develop AI models for marine biodiversity monitoring using computer vision.",
+        "programme": "Horizon Europe",
+        "endDate": "2026-12-01",
+        "url": "https://example.com/marine-ai"
+    },
+    {
+        "title": "Climate Data Intelligence Project",
+        "objective": "Use machine learning techniques for climate prediction.",
+        "programme": "European Research Council",
+        "endDate": "2027-03-15",
+        "url": "https://example.com/climate-ai"
+    }
+]

@@ -1,9 +1,9 @@
+from abc import ABC, abstractmethod
+
+
 class BaseCollector(ABC):
     """
-    Abstract interface for opportunity collectors.
-
-    Every collector (CORDIS, OpenAlex, etc.)
-    must implement the collect() method.
+    Abstract interface for all opportunity collectors.
     """
 
     @abstractmethod

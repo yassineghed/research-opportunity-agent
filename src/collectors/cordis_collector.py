@@ -1,39 +1,31 @@
-from src.collectors.base_collector import BaseCollector
+import json
+
 from src.models.opportunity import Opportunity
-import requests
+from src.collectors.base_collector import BaseCollector
 
 
-class CordisCollector:
+class CordisCollector(BaseCollector):
 
-    BASE_URL = "YOUR_CORDIS_ENDPOINT"
+    def __init__(self, file_path):
+        self.file_path = file_path
 
 
     def collect(self):
 
-        response = requests.get(
-            self.BASE_URL
-        )
+        with open(self.file_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
 
-        if response.status_code != 200:
-            raise Exception(
-                "Failed to fetch CORDIS data"
-            )
-
-        data = response.json()
 
         opportunities = []
 
-
-        for index, item in enumerate(data["projects"]):
+        for index, item in enumerate(data):
 
             opportunity = self.parse_opportunity(
                 item,
                 index
             )
 
-            opportunities.append(
-                opportunity
-            )
+            opportunities.append(opportunity)
 
 
         return opportunities
