@@ -1,34 +1,66 @@
-import sys
-from pathlib import Path
+import requests
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
-sys.path.append(str(PROJECT_ROOT))
+from src.collectors.base_collector import BaseCollector
+from src.models.opportunity import Opportunity
 
 
-from src.collectors.cordis_collector import CordisCollector
+class CordisCollector(BaseCollector):
 
-collector = CordisCollector(
-    "data/mock/cordis_response.json"
-)
-
-
-opportunities = collector.collect()
+    def __init__(self):
+        self.api_url = "YOUR_CORDIS_API_URL"
 
 
-print(
-    f"Number of opportunities: {len(opportunities)}"
-)
+    def collect(self):
+
+        response = requests.get(
+            self.api_url,
+            timeout=10
+        )
+
+        if response.status_code != 200:
+            raise Exception(
+                f"CORDIS API error: {response.status_code}"
+            )
+
+        data = response.json()
+
+        opportunities = []
+
+        for index, item in enumerate(data):
+
+            opportunity = self.parse_opportunity(
+                item,
+                index
+            )
+
+            opportunities.append(opportunity)
+
+        return opportunities
 
 
-for opportunity in opportunities:
+    def parse_opportunity(self, item, index):
 
-    print("-------------------------")
-
-    print("ID:", opportunity.id)
-    print("Title:", opportunity.title)
-    print("Type:", opportunity.type)
-    print("Organization:", opportunity.organization)
-    print("Description:", opportunity.description)
-    print("Deadline:", opportunity.deadline)
-    print("URL:", opportunity.url)
+        return Opportunity(
+            id=index,
+            title=item.get("title", ""),
+            type="Grant",
+            organization=item.get(
+                "organization",
+                ""
+            ),
+            description=item.get(
+                "description",
+                ""
+            ),
+            keywords=[],
+            topics=[],
+            eligibility="Researchers",
+            deadline=item.get(
+                "deadline",
+                ""
+            ),
+            url=item.get(
+                "url",
+                ""
+            )
+        )
