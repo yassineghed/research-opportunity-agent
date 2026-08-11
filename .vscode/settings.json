@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^python tools/run_llm_once\\.py$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

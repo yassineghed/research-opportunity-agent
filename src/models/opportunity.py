@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Optional
+
 
 @dataclass
 class Opportunity:
@@ -11,4 +13,4 @@ class Opportunity:
     topics: list[str]
     eligibility: str
     deadline: str
-    url: str
+    url: Optional[str] = ""

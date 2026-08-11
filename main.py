@@ -14,6 +14,14 @@ from src.builders.opportunity.natural_opportunity_builder import (
     NaturalLanguageOpportunityBuilder
 )
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# LLM imports
+from src.llm.client import LLMClient
+from src.reranking.llm_reranker import LLMReranker
+
 from src.loaders import DataLoader
 
 researchers = DataLoader.load_researchers(
@@ -24,8 +32,27 @@ opportunities = DataLoader.load_opportunities(
     "data/mock/opportunities.json"
 )
 
+llm_client = LLMClient()
+
+reranker = LLMReranker(
+    llm_client
+)
 
 
+researcher = researchers[0]
+
+candidate_opportunities = opportunities[:5]
+
+
+results = reranker.rerank(
+    researcher,
+    candidate_opportunities
+)
+
+
+print(results)
+
+"""
 structured_builder = StructuredProfileBuilder()
 researcher_texts = []
 
@@ -60,6 +87,8 @@ opp_vector = mini.encode_batch(opportunity_texts)
 ranker = OpportunityRanker()
 
 """
+"""
+
 recommendations = ranker.rank(
     researcher_vector[0],
     opp_vector,
@@ -71,6 +100,7 @@ print(opp_vector.shape)
 for rec in recommendations[:5]:
     print(rec)"""
 
+"""
 
 #### testing all the researchers 
 for i, researcher in enumerate(researchers):
@@ -90,8 +120,9 @@ for i, researcher in enumerate(researchers):
             rec["title"],
             "→",
             round(rec["score"],3)
-        )
 
+        )
+"""
 """
 print("===== STRUCTURED =====")
 
@@ -115,4 +146,4 @@ embedder = Embedder()
 vector = embedder.encode(natural_builder.build(opportunity))
 print(vector.shape)
 print(type(vector))
-print(vector[:5])"""
+print(vector[:5]) """
