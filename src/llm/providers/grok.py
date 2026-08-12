@@ -3,6 +3,7 @@ import os
 from openai import OpenAI
 
 from src.llm.base import BaseLLM
+from src.llm.errors import classify_llm_error
 
 
 class GrokLLM(BaseLLM):
@@ -25,16 +26,19 @@ class GrokLLM(BaseLLM):
         self.model_name = model_name
 
     def generate(self, prompt: str) -> str:
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt,
+                    }
+                ],
+            )
 
-        response = self.client.chat.completions.create(
-            model=self.model_name,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-        )
+            message = response.choices[0].message.content
+            return message or ""
 
-        message = response.choices[0].message.content
-        return message or ""
+        except Exception as exc:
+            raise classify_llm_error("Grok", exc) from exc

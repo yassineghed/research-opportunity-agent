@@ -3,6 +3,7 @@ import os
 from google import genai
 
 from src.llm.base import BaseLLM
+from src.llm.errors import classify_llm_error
 
 
 class GeminiLLM(BaseLLM):
@@ -24,10 +25,13 @@ class GeminiLLM(BaseLLM):
         self.model_name = model_name
 
     def generate(self, prompt: str) -> str:
+        try:
+            response = self.client.models.generate_content(
+                model=self.model_name,
+                contents=prompt,
+            )
 
-        response = self.client.models.generate_content(
-            model=self.model_name,
-            contents=prompt
-        )
+            return response.text or ""
 
-        return response.text or ""
+        except Exception as exc:
+            raise classify_llm_error("Gemini", exc) from exc

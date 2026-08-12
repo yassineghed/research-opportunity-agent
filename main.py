@@ -67,6 +67,10 @@ def _format_retrieval_results(results: list[dict[str, Any]], opportunities_by_id
     return "\n".join(lines)
 
 
+def _is_provider_llm_error(exc: Exception) -> bool:
+    return hasattr(exc, "provider") and hasattr(exc, "message")
+
+
 def main() -> None:
     researchers = DataLoader.load_researchers(PROJECT_ROOT / "data" / "mock" / "researchers.json")
     opportunities = DataLoader.load_opportunities(PROJECT_ROOT / "data" / "mock" / "opportunities.json")
@@ -119,7 +123,7 @@ def main() -> None:
         provider_results: list[tuple[str, list[dict[str, Any]], Exception | None]] = []
 
         for provider_name, reranker in llm_rerankers:
-            rerank_error = None
+            rerank_error: Exception | None = None
             recommendations: list[dict[str, Any]] = []
 
             try:
@@ -131,6 +135,9 @@ def main() -> None:
                     reverse=True,
                 )[:TOP_K_FINAL]
             except Exception as exc:
+                if not _is_provider_llm_error(exc):
+                    raise
+
                 rerank_error = exc
                 recommendations = [
                     {
