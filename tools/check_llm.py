@@ -1,6 +1,5 @@
 import os
 import sys
-trace = []
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -21,8 +20,10 @@ safe_print(".env exists:", env_path.exists())
 
 load_dotenv(env_path)
 
-safe_print("GEMINI_API_KEY present:", bool(os.getenv("GEMINI_API_KEY")))
+safe_print("LLM_PROVIDER:", os.getenv("LLM_PROVIDER"))
 safe_print("LLM_MODEL:", os.getenv("LLM_MODEL"))
+safe_print("GEMINI_API_KEY present:", bool(os.getenv("GEMINI_API_KEY")))
+safe_print("GROK_API_KEY present:", bool(os.getenv("GROK_API_KEY") or os.getenv("GORK_API_KEY")))
 
 safe_print("sys.path (head):", sys.path[:5])
 

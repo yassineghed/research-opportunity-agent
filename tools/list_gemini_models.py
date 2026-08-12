@@ -11,6 +11,11 @@ def main():
     if env_path.exists():
         load_dotenv(env_path)
 
+    provider = os.getenv("LLM_PROVIDER", "gemini").strip().lower()
+    if provider != "gemini":
+        print(f"Model listing is only available for Gemini in this script. Current provider: {provider}")
+        return
+
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         print("GEMINI_API_KEY not set in .env or environment.")

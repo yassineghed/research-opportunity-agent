@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 from typing import Any
+import os
 
 from dotenv import load_dotenv
 
@@ -79,8 +80,19 @@ def main() -> None:
     opportunity_builder = StructuredOpportunityBuilder()
     embedder = Embedder(EMBEDDING_MODEL)
     ranker = OpportunityRanker()
-    llm_client = LLMClient()
-    reranker = LLMReranker(llm_client)
+    gemini_client = LLMClient(
+        provider="gemini",
+        model_name=os.getenv("GEMINI_MODEL") or os.getenv("LLM_MODEL"),
+    )
+    grok_client = LLMClient(
+        provider="grok",
+        model_name=os.getenv("GROK_MODEL") or "grok-4.5-latest",
+    )
+
+    llm_rerankers = [
+        ("Gemini", LLMReranker(gemini_client)),
+        ("Grok", LLMReranker(grok_client)),
+    ]
 
     opportunity_vectors = _build_opportunity_index(opportunities, opportunity_builder, embedder)
     opportunities_by_id = {opportunity.id: opportunity for opportunity in opportunities}
@@ -88,6 +100,8 @@ def main() -> None:
     print(f"Loaded {len(researchers)} researchers and {len(opportunities)} opportunities")
     print(f"Embedding model: {EMBEDDING_MODEL}")
     print(f"Retrieval top-k: {TOP_K_RETRIEVAL} | Final top-k: {TOP_K_FINAL}")
+    print(f"Gemini model: {gemini_client.llm.model_name}")
+    print(f"Grok model: {grok_client.llm.model_name}")
     print()
 
     for researcher in researchers:
@@ -102,33 +116,36 @@ def main() -> None:
         top_candidates = retrieval_results[:TOP_K_RETRIEVAL]
         candidate_opportunities = [opportunities_by_id[item["opportunity_id"]] for item in top_candidates]
 
-        rerank_error = None
-        recommendations = []
+        provider_results: list[tuple[str, list[dict[str, Any]], Exception | None]] = []
 
-        try:
-            reranked = reranker.rerank(researcher, candidate_opportunities)
-            recommendations = reranked.get("recommendations", [])
-            recommendations = sorted(
-                recommendations,
-                key=lambda item: item.get("score", 0),
-                reverse=True,
-            )[:TOP_K_FINAL]
-        except Exception as exc:
-            rerank_error = exc
-            recommendations = [
-                {
-                    "opportunity_id": item["opportunity_id"],
-                    "score": round(item["score"] * 100, 0),
-                    "reason": "LLM unavailable; using cosine similarity fallback.",
-                    "matching_areas": [],
-                }
-                for item in top_candidates[:TOP_K_FINAL]
-            ]
+        for provider_name, reranker in llm_rerankers:
+            rerank_error = None
+            recommendations: list[dict[str, Any]] = []
+
+            try:
+                reranked = reranker.rerank(researcher, candidate_opportunities)
+                recommendations = reranked.get("recommendations", [])
+                recommendations = sorted(
+                    recommendations,
+                    key=lambda item: item.get("score", 0),
+                    reverse=True,
+                )[:TOP_K_FINAL]
+            except Exception as exc:
+                rerank_error = exc
+                recommendations = [
+                    {
+                        "opportunity_id": item["opportunity_id"],
+                        "score": round(item["score"] * 100, 0),
+                        "reason": f"{provider_name} unavailable; using cosine similarity fallback.",
+                        "matching_areas": [],
+                    }
+                    for item in top_candidates[:TOP_K_FINAL]
+                ]
+
+            provider_results.append((provider_name, recommendations, rerank_error))
 
         retrieval_top_3 = top_candidates[:TOP_K_FINAL]
         retrieval_ids = [item["opportunity_id"] for item in retrieval_top_3]
-        rerank_ids = [item["opportunity_id"] for item in recommendations]
-        overlap = len(set(retrieval_ids) & set(rerank_ids))
 
         print("=" * 80)
         print(f"Researcher: {researcher.fullname} - {researcher.institution}")
@@ -136,19 +153,23 @@ def main() -> None:
         print("\nTop 3 cosine similarity:")
         print(_format_retrieval_results(retrieval_top_3, opportunities_by_id, TOP_K_FINAL))
 
-        print("\nTop 3 after LLM reranking:")
-        if recommendations:
-            print(_format_recommendations(recommendations, opportunities_by_id))
-        else:
-            print("No valid recommendations returned by the LLM.")
+        for provider_name, recommendations, rerank_error in provider_results:
+            rerank_ids = [item["opportunity_id"] for item in recommendations]
+            overlap = len(set(retrieval_ids) & set(rerank_ids))
 
-        if rerank_error is not None:
+            print(f"\nTop 3 after {provider_name} reranking:")
+            if recommendations:
+                print(_format_recommendations(recommendations, opportunities_by_id))
+            else:
+                print("No valid recommendations returned by the LLM.")
+
+            if rerank_error is not None:
+                print()
+                print(f"{provider_name} error: {rerank_error}")
+                print("Displayed cosine fallback for this researcher.")
+
             print()
-            print(f"LLM error: {rerank_error}")
-            print("Displayed cosine fallback for this researcher.")
-
-        print()
-        print(f"Overlap between cosine top 3 and LLM top 3: {overlap}/3")
+            print(f"Overlap between cosine top 3 and {provider_name} top 3: {overlap}/3")
         print()
 
 

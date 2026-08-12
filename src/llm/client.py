@@ -24,13 +24,13 @@ class LLMClient:
         )
         provider_name = provider_name.strip().lower()
 
-        resolved_model_name = model_name or os.getenv("LLM_MODEL")
-
         if provider_name == "gemini":
+            resolved_model_name = model_name or os.getenv("GEMINI_MODEL") or os.getenv("LLM_MODEL")
             self.llm = GeminiLLM(
                 model_name=resolved_model_name
             )
         elif provider_name in {"grok", "xai"}:
+            resolved_model_name = model_name or os.getenv("GROK_MODEL")
             self.llm = GrokLLM(
                 model_name=resolved_model_name
             )

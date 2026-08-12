@@ -13,10 +13,11 @@ if str(repo_root) not in sys.path:
     sys.path.append(str(repo_root))
 
 # Ensure model is set for this session
-desired = "models/gemini-flash-latest"
+desired = os.getenv("LLM_MODEL") or "models/gemini-flash-latest"
 if os.getenv("LLM_MODEL") != desired:
     os.environ["LLM_MODEL"] = desired
 
+print("Using LLM_PROVIDER:", os.getenv("LLM_PROVIDER"))
 print("Using LLM_MODEL:", os.getenv("LLM_MODEL"))
 
 try:

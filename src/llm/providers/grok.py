@@ -16,9 +16,7 @@ class GrokLLM(BaseLLM):
             )
 
         if not model_name:
-            raise ValueError(
-                "LLM_MODEL is not set."
-            )
+            model_name = os.getenv("GROK_MODEL", "grok-4.5-latest")
 
         self.client = OpenAI(
             api_key=api_key,
