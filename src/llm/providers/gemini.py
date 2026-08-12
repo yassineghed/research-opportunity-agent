@@ -1,18 +1,23 @@
-from src.llm.providers.gemini import GeminiLLM
 import os
-from google import genai
-from src.llm.base import BaseLLM
 
+from google import genai
+
+from src.llm.base import BaseLLM
 
 
 class GeminiLLM(BaseLLM):
 
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str = None):
         api_key = os.getenv("GEMINI_API_KEY")
 
         if not api_key:
             raise ValueError(
                 "GEMINI_API_KEY is not set."
+            )
+
+        if not model_name:
+            raise ValueError(
+                "LLM_MODEL is not set."
             )
 
         self.client = genai.Client(api_key=api_key)
@@ -25,4 +30,4 @@ class GeminiLLM(BaseLLM):
             contents=prompt
         )
 
-        return response.text
+        return response.text or ""

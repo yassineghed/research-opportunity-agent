@@ -1,30 +1,36 @@
 import os
+from typing import Optional
 
-from src.llm.provider.gemini import GeminiLLM
+from src.llm.providers.gemini import GeminiLLM
 
 
 class LLMClient:
 
-    def __init__(self):
+    def __init__(
+        self,
+        provider: Optional[str] = None,
+        model_name: Optional[str] = None,
+        llm=None,
+    ):
 
-        provider = os.getenv(
+        if llm is not None:
+            self.llm = llm
+            return
+
+        provider_name = provider or os.getenv(
             "LLM_PROVIDER",
             "gemini"
         )
 
-        model_name = os.getenv(
-            "LLM_MODEL"
-        )
+        resolved_model_name = model_name or os.getenv("LLM_MODEL")
 
-        if provider == "gemini":
-
+        if provider_name == "gemini":
             self.llm = GeminiLLM(
-                model_name=model_name
+                model_name=resolved_model_name
             )
-
         else:
             raise ValueError(
-                f"Unsupported LLM provider: {provider}"
+                f"Unsupported LLM provider: {provider_name}"
             )
 
     def generate(self, prompt: str) -> str:

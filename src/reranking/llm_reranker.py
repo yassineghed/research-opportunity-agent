@@ -1,4 +1,5 @@
 import json
+import re
 
 
 class LLMReranker:
@@ -92,11 +93,33 @@ Sort the recommendations from highest score to lowest score.
 
     def _parse_response(self, response):
 
+        payload = self._extract_json_payload(response)
+
         try:
-            return json.loads(response)
+            return json.loads(payload)
 
         except json.JSONDecodeError:
 
             raise ValueError(
                 "The LLM did not return valid JSON."
             )
+
+    def _extract_json_payload(self, response):
+
+        if not isinstance(response, str):
+            raise ValueError(
+                "The LLM response must be a string."
+            )
+
+        trimmed_response = response.strip()
+
+        code_fence_match = re.search(
+            r"```(?:json)?\s*(.*?)\s*```",
+            trimmed_response,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        if code_fence_match:
+            return code_fence_match.group(1).strip()
+
+        return trimmed_response
