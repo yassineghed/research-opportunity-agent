@@ -1,0 +1,478 @@
+{
+  "contenttype": "article",
+  "language": "en",
+  "availableLanguages": "de,en,es,fr,it,pl",
+  "rcn": "123603",
+  "id": "123603-eu-researchers-tap-into-big-data-potential",
+  "title": "EU researchers tap into Big Data potential",
+  "teaser": "Providing European researchers with easier access to data management solutions and large storage systems close to Europe’s most powerful supercomputers, while enabling them to move large amounts of data across borders, is the key objective of the EUDAT2020 project.",
+  "body": "<section><sectionBody>To remain at the cutting edge, European researchers across a range of disciplines need to be able to preserve and access masses of data and foster cross-border collaborations. EUDAT2020 aims to facilitate exactly this. \n\nBuilding on previous EU-funded projects, this initiative has brought together a network of European research organisations and data and computing centres across 14 countries to create a pan-European collaborative data infrastructure (CDI). As of April 2018, 23 partners had formally joined the CDI. \n\nProject coordinator Damien Lecarpentier from CSC in Finland discusses the project’s achievements as well as its role in helping to ensure future European research excellence. \n\nWe’ve heard about Big Data creating new opportunities for researchers. But what have been some of the challenges? \n\nThe European Union and its Member States have invested heavily in recent years to make distributed grids and high-performance computing (HPC) facilities available for researchers across a range of fields. The challenge is that the rapid growth of data – thanks to powerful new scientific instruments, simulations and the digitisation of existing resources – requires new ways of organising and processing the amount of information now available. We need to develop a more coherent approach to data management, and this is what this project is about. We wanted to connect data centres in order to better support different research communities. \n\nCan you give some specific examples of these challenges?\n\nIn solid earth science, the data that is gathered spans real-time and off-line data (such as pictures, videos and organised data structures stored in databases). These different types of data have different technical requirements in terms of access and preservation. In the biomedical community, a key challenge is ensuring that data can be accessed while preserving the legal requirements of patient anonymity and confidentiality. All research fields, including the social sciences and humanities, face challenges related to managing data replicas and accessing this data in a multiple user environment.\n\nWhat role have researchers played in this project? \n\nSince the beginning, research communities have been in the driving seat in terms of selecting data services. They have also directly participated through multi-disciplinary teams in the design and development of these services. The project brought together over 50 research communities across a range of disciplines, with each one bringing specific requirements and knowledge. These requirements ranged from the need to replicate data for greater availability and ensuring the safety of sensitive data to being able to share data beyond the initial community.\n\nNewer research communities are often still designing their core data workflow processes and are interested in trialling various solutions before they can commit. More mature communities usually have an existing working infrastructure. \n    \nWherever possible, we viewed existing services as opportunities and sought to support them by providing the communities with the possibility of scaling out their computing and storage environment using the CDI infrastructure. This meant considering research communities in their role as service providers and not only customers.\n\nHow will the project benefit researchers?\n\nResearch communities involved in the project were able to plan, implement and use data management services on a European-wide scale. Scientific fields covered include social sciences and humanities, Earth and atmospheric science, climate science, biodiversity, life sciences and physics.\n\nIn the past, if I needed to access a storage system where I could also analyse my data I could talk with my local data and computing centre. But this would just cover local users, from the same country. Moving data across borders or sharing data and tools with colleagues from abroad often required a bespoke solution every time, which is simply not scalable. This sustainable partnership, in which all partners share a common vision, has opened up access to data tools at the European level and enables European collaborations to be activated far quicker. \n\nThe project has also made providers of data storage and management services much more aware of the needs of research communities. This includes their data management requirements, as well as how they organise their particular research infrastructures; for example, whether they choose to run their own data management services or whether they use pre-existing services that require special adaptations. \n\nWhat have been the key factors behind the project’s success? \n\nThese achievements were made possible by a generously funded EU project and by a group of highly engaged project partners. By building on previous project experiences and working together, we managed to create a unique culture for open knowledge exchange and collaboration. We have created the EUDAT CDI as a way of preserving and continuing this legacy. \n\nHow will this legacy be secured? \n\nDuring the project’s final year, we focused on moving from a project basis to a sustainable organisation. EUDAT partners have committed to sustain the CDI and its services for an initial period of 10 years. We have also established a secretariat to coordinate the development and operation of the CDI infrastructure, and in February 2018 a limited liability company was formally established. This will operate on a non-profit making basis as the voice of European organisations working together as part of the EUDAT CDI, providing services related to scientific and research data storage and lifecycle management. \n\nAs for the future, EUDAT CDI is a growing organisation based on a contractual agreement between its members. It is one of the key pillars of the European Open Science Cloud, a cloud for research data in Europe. The CDI is an open enterprise and welcomes service providers wanting to join the network with various levels of engagement and integration.</sectionBody></section>",
+  "basedOn": "Interview from research*eu results magazine n. 74",
+  "contentCreationDate": "2018-06-26 16:10:37",
+  "contentUpdateDate": "2018-06-26 16:10:26",
+  "lastUpdateDate": "2024-04-18 16:02:02",
+  "archivedDate": "2024-04-18 00:00:00",
+  "relations": {
+    "categories": [
+      {
+        "language": "en",
+        "availableLanguages": "de,en,es,fr,it,pl",
+        "code": "/ict",
+        "title": "Digital Economy",
+        "displayCode": "/Digital Economy",
+        "attributes": {
+          "classification": "applicationDomain",
+          "type": "isApplicableIn"
+        }
+      },
+      {
+        "language": "en",
+        "availableLanguages": "de,en,es,fr,it,pl",
+        "code": "/interview",
+        "title": "Interview",
+        "description": "Article: Interviews",
+        "displayCode": "/Interview",
+        "attributes": {
+          "classification": "collection",
+          "type": "belongsTo"
+        }
+      },
+      {
+        "language": "en",
+        "availableLanguages": "de,en,es,fr,it,pl",
+        "code": "/editorial",
+        "title": "CORDIS Editorial",
+        "description": "Written by CORDIS",
+        "displayCode": "/CORDIS Editorial",
+        "attributes": {
+          "classification": "source",
+          "type": "isProvidedBy"
+        }
+      }
+    ],
+    "associations": [
+      {
+        "availableLanguages": "de,en,es,fr,it,pl",
+        "rcn": "401027",
+        "id": "401027-the-futures-bright-the-futures-big-data",
+        "title": "The future's bright, the future's Big Data",
+        "teaser": "Web 3.0 is upon us, and with it the capacity to use Big Data to its full potential. So, what does the future hold for Big Data? Will it become more accessible? Can its potential translate into applications that will change society for the better? To answer these questions, we shed light on innovative applications and research aiming to bring Big Data closer to everyone wanting to tap into its potential.",
+        "contentUpdateDate": "2018-07-11 00:00:00",
+        "archivedDate": "2024-05-29 00:00:00",
+        "relations": {
+          "categories": [
+            {
+              "language": "en",
+              "code": "/mag",
+              "title": "research*eu magazine",
+              "description": "Article: Both results and focus magazines",
+              "displayCode": "/research*eu magazine",
+              "attributes": {
+                "classification": "collection",
+                "type": "belongsTo"
+              }
+            },
+            {
+              "language": "en",
+              "code": "/editorial",
+              "title": "CORDIS Editorial",
+              "description": "Written by CORDIS",
+              "displayCode": "/CORDIS Editorial",
+              "attributes": {
+                "classification": "source",
+                "type": "isProvidedBy"
+              }
+            }
+          ],
+          "associations": [
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl,any",
+              "uri": "/docs/article/images/2018-06/401027-1.jpg",
+              "mimetype": "image/jpeg",
+              "size": "0",
+              "copyright": "© theromb, Shutterstock",
+              "contenttype": "webItem",
+              "attributes": {
+                "represents": "article",
+                "source": "editorial",
+                "type": "relatedImage"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl,any",
+              "uri": "/docs/article/images/2018-06/401027.jpg",
+              "mimetype": "image/jpeg",
+              "size": "0",
+              "copyright": "© European Union",
+              "contenttype": "webItem",
+              "attributes": {
+                "represents": "magazineCover",
+                "source": "editorial",
+                "type": "relatedImage"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "defaultLanguage": "en",
+              "title": "Order paper copy",
+              "id": "c135a845-7a88-11e8-ac6a-01aa75ed71a1_print",
+              "physUrl": "https://op.europa.eu/en/publication-detail/-/publication/c135a845-7a88-11e8-ac6a-01aa75ed71a1/",
+              "status": "legacy",
+              "contenttype": "webLink",
+              "attributes": {
+                "represents": "article",
+                "source": "editorial",
+                "type": "orderPrint"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "en",
+              "defaultLanguage": "en",
+              "title": "Download PDF version",
+              "id": "c135a845-7a88-11e8-ac6a-01aa75ed71a1_pdf",
+              "physUrl": "https://op.europa.eu/o/opportal-service/download-handler?identifier=c135a845-7a88-11e8-ac6a-01aa75ed71a1&format=PDF&language=en&productionSystem=cellar",
+              "status": "legacy",
+              "contenttype": "webLink",
+              "attributes": {
+                "represents": "article",
+                "source": "editorial",
+                "type": "formatPdf"
+              }
+            }
+          ]
+        },
+        "contenttype": "article",
+        "attributes": {
+          "source": "editorial",
+          "type": "isContainedIn"
+        }
+      },
+      {
+        "availableLanguages": "de,en,es,fr,it,pl",
+        "rcn": "664121",
+        "code": "H2020-EU.1.4.",
+        "frameworkProgramme": "H2020",
+        "pga": "H2020-EU.1.4.",
+        "parent": {
+          "rcn": "664091/664087/664086",
+          "code": "H2020-EU.1./H2020-EC/H2020"
+        },
+        "contenttype": "programme",
+        "attributes": {
+          "source": "editorial",
+          "type": "relatedProgramme"
+        }
+      },
+      {
+        "availableLanguages": "en",
+        "rcn": "194928",
+        "id": "654065",
+        "acronym": "EUDAT2020",
+        "teaser": "EUDAT2020 brings together a unique consortium of e-infrastructure providers, research infrastructure operators, and researchers from a wide range of scientific disciplines under several of the ESFRI themes, working together to address the new data challenge. In most research...",
+        "title": "EUDAT2020",
+        "relations": {
+          "categories": [
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "code": "/project",
+              "title": "Project",
+              "description": "Project factsheets",
+              "displayCode": "/Project",
+              "attributes": {
+                "classification": "collection",
+                "type": "belongsTo"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "code": "/29/101/559",
+              "title": "governance",
+              "displayCode": "/social sciences/sociology/governance",
+              "attributes": {
+                "classification": "euroSciVoc",
+                "type": "isInFieldOfScience"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "code": "/23/47/299/951",
+              "title": "big data",
+              "displayCode": "/natural sciences/computer and information sciences/data science/big data",
+              "attributes": {
+                "classification": "euroSciVoc",
+                "type": "isInFieldOfScience"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "code": "/29/91/523/1307",
+              "title": "business models",
+              "displayCode": "/social sciences/economics and business/business and management/business models",
+              "attributes": {
+                "classification": "euroSciVoc",
+                "type": "isInFieldOfScience"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "en",
+              "code": "/RIA",
+              "title": "Research and Innovation action",
+              "description": "Research and Innovation action",
+              "displayCode": "/Research and Innovation action",
+              "attributes": {
+                "classification": "projectFundingSchemeCategory",
+                "type": "relatedProjectFundingSchemeCategory"
+              }
+            },
+            {
+              "language": "en",
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "code": "/corda",
+              "title": "CORDA",
+              "description": "RTD research data warehouse",
+              "displayCode": "/CORDA",
+              "attributes": {
+                "classification": "source",
+                "type": "isProvidedBy"
+              }
+            }
+          ],
+          "associations": [
+            {
+              "availableLanguages": "en",
+              "rcn": "664617",
+              "code": "EINFRA-1-2014",
+              "frameworkProgramme": "H2020",
+              "title": "Managing, preserving and computing with big research data",
+              "parent": {
+                "rcn": "20200",
+                "code": "H2020-Topics"
+              },
+              "relations": {
+                "categories": [
+                  {
+                    "language": "en",
+                    "code": "/topic",
+                    "title": "Topic",
+                    "description": "Programme: Part of the Commission work programme implementing legal basis",
+                    "displayCode": "/Topic",
+                    "attributes": {
+                      "classification": "collection",
+                      "type": "belongsTo"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/corda",
+                    "title": "CORDA",
+                    "description": "RTD research data warehouse",
+                    "displayCode": "/CORDA",
+                    "attributes": {
+                      "classification": "source",
+                      "type": "isProvidedBy"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31048395",
+                    "title": "Computer sciences, information science and bioinformatics",
+                    "displayCode": "/Computer sciences, information science and bioinformatics",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31049043",
+                    "title": "Engineering and technology",
+                    "displayCode": "/Engineering and technology",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31048412",
+                    "title": "Numerical analysis, simulation, optimisation, modelling tools",
+                    "displayCode": "/Numerical analysis, simulation, optimisation, modelling tools",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31048383",
+                    "title": "Scientific computing and data processing",
+                    "displayCode": "/Scientific computing and data processing",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31048414",
+                    "title": "Web and information systems, database systems, information retrieval and digital libraries, data fusion",
+                    "displayCode": "/Web and information systems, database systems, information retrieval and digital libraries, data fusion",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/31048405",
+                    "title": "Computer systems, parallel/distributed systems, grid, cloud processing systems",
+                    "attributes": {
+                      "classification": "topicKeyword",
+                      "type": "isAbout"
+                    }
+                  }
+                ]
+              },
+              "contenttype": "programme",
+              "attributes": {
+                "source": "corda",
+                "type": "relatedTopic"
+              }
+            },
+            {
+              "availableLanguages": "en",
+              "rcn": "664129",
+              "code": "H2020-EU.1.4.1.3.",
+              "frameworkProgramme": "H2020",
+              "pga": "H2020-EU.1.4.1.3.",
+              "title": "Development, deployment and operation of ICT-based e-infrastructures",
+              "parent": {
+                "rcn": "664123/664121/664091/664087/664086",
+                "code": "H2020-EU.1.4.1./H2020-EU.1.4./H2020-EU.1./H2020-EC/H2020"
+              },
+              "relations": {
+                "categories": [
+                  {
+                    "language": "en",
+                    "code": "/legalbasis",
+                    "title": "Legal Basis",
+                    "description": "Programme: Legal basis for research funding",
+                    "displayCode": "/Legal Basis",
+                    "attributes": {
+                      "classification": "collection",
+                      "type": "belongsTo"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/editorial",
+                    "title": "CORDIS Editorial",
+                    "description": "Written by CORDIS",
+                    "displayCode": "/CORDIS Editorial",
+                    "attributes": {
+                      "classification": "source",
+                      "type": "isProvidedBy"
+                    }
+                  }
+                ]
+              },
+              "contenttype": "programme",
+              "attributes": {
+                "source": "corda",
+                "type": "relatedLegalBasis"
+              }
+            },
+            {
+              "availableLanguages": "de,en,es,fr,it,pl",
+              "rcn": "664121",
+              "code": "H2020-EU.1.4.",
+              "frameworkProgramme": "H2020",
+              "pga": "H2020-EU.1.4.",
+              "title": "EXCELLENT SCIENCE - Research Infrastructures",
+              "shortTitle": "Research Infrastructures",
+              "parent": {
+                "rcn": "664091/664087/664086",
+                "code": "H2020-EU.1./H2020-EC/H2020"
+              },
+              "relations": {
+                "categories": [
+                  {
+                    "language": "en",
+                    "code": "/legalbasis",
+                    "title": "Legal Basis",
+                    "description": "Programme: Legal basis for research funding",
+                    "displayCode": "/Legal Basis",
+                    "attributes": {
+                      "classification": "collection",
+                      "type": "belongsTo"
+                    }
+                  },
+                  {
+                    "language": "en",
+                    "code": "/editorial",
+                    "title": "CORDIS Editorial",
+                    "description": "Written by CORDIS",
+                    "displayCode": "/CORDIS Editorial",
+                    "attributes": {
+                      "classification": "source",
+                      "type": "isProvidedBy"
+                    }
+                  }
+                ]
+              },
+              "contenttype": "programme",
+              "attributes": {
+                "source": "corda",
+                "type": "relatedLegalBasis",
+                "uniqueProgrammePart": "true"
+              }
+            }
+          ]
+        },
+        "contenttype": "project",
+        "attributes": {
+          "source": "editorial",
+          "type": "relatedProject"
+        }
+      },
+      {
+        "language": "en",
+        "availableLanguages": "de,en,es,fr,it,pl,any",
+        "uri": "/docs/news/images/2018-06/129603.jpg",
+        "mimetype": "image/jpeg",
+        "size": "0",
+        "copyright": "© EUDAT",
+        "contenttype": "webItem",
+        "attributes": {
+          "represents": "article",
+          "source": "editorial",
+          "type": "relatedImage"
+        }
+      }
+    ],
+    "regions": [
+      {
+        "name": "Finland",
+        "rcn": "256543272",
+        "nutsCode": "FI",
+        "euCode": "FI",
+        "isoCode": "FI",
+        "attributes": {
+          "source": "editorial",
+          "type": "relatedRegion"
+        }
+      }
+    ]
+  },
+  "modelVersion": "132",
+  "icaVersion": "18.0.0-aee89781"
+}

@@ -267,19 +267,9 @@ class CordisCollector(BaseCollector):
         if "zip" in content_type_lower or payload.startswith(b"PK"):
             try:
                 with zipfile.ZipFile(io.BytesIO(payload)) as archive:
-                    for member_name in archive.namelist():
-                        if member_name.lower().endswith((".json", ".geojson", ".txt")):
-                            with archive.open(member_name) as member_file:
-                                member_data = member_file.read()
-                            try:
-                                return json.loads(member_data.decode("utf-8"))
-                            except UnicodeDecodeError:
-                                try:
-                                    return json.loads(member_data.decode("utf-8-sig"))
-                                except Exception:
-                                    continue
-                            except json.JSONDecodeError:
-                                continue
+                    json_payload = self._extract_json_from_zip(archive)
+                    if json_payload is not None:
+                        return json_payload
 
                     raise ValueError(
                         "CORDIS ZIP download did not contain a readable JSON file. "
@@ -306,6 +296,51 @@ class CordisCollector(BaseCollector):
                 f"Content-Type: {content_type}. "
                 f"Body preview: {text[:500]}"
             ) from exc
+
+    def _extract_json_from_zip(self, archive, seen_archives=None):
+        """Recursively find JSON content inside nested zip files."""
+        if seen_archives is None:
+            seen_archives = set()
+
+        for member_name in archive.namelist():
+            if member_name.endswith("/"):
+                continue
+
+            member_lower = member_name.lower()
+            try:
+                with archive.open(member_name) as member_file:
+                    member_data = member_file.read()
+            except RuntimeError:
+                continue
+
+            if member_lower.endswith(".zip"):
+                if member_name in seen_archives:
+                    continue
+                seen_archives.add(member_name)
+                try:
+                    with zipfile.ZipFile(io.BytesIO(member_data)) as nested_archive:
+                        nested_json = self._extract_json_from_zip(nested_archive, seen_archives)
+                        if nested_json is not None:
+                            return nested_json
+                except zipfile.BadZipFile:
+                    continue
+                continue
+
+            if member_lower.endswith((".json", ".geojson", ".txt")):
+                try:
+                    text = member_data.decode("utf-8")
+                except UnicodeDecodeError:
+                    try:
+                        text = member_data.decode("utf-8-sig")
+                    except UnicodeDecodeError:
+                        continue
+
+                try:
+                    return json.loads(text)
+                except json.JSONDecodeError:
+                    continue
+
+        return None
 
     def collect(self, query):
         """
