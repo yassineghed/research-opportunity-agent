@@ -27,7 +27,8 @@ print("API key loaded successfully.")
 collector = CordisCollector(api_key)
 
 # 4. Test query
-query = "artificial intelligence"
+query = '"computer vision" AND biodiversity"'
+query = collector.normalize_query(query)
 print("\nStarting CORDIS extraction...")
 print(f"Query: {query}")
 
