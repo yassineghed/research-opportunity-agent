@@ -88,3 +88,18 @@ with open(
 print(
     f"\nRaw data saved to: {output_path}"
 )
+
+print("\n========== RELATIONS ==========")
+print(data.get("relations"))
+
+print("\n========== BASED ON ==========")
+print(data.get("basedOn"))
+
+print("\n========== CONTENT TYPE ==========")
+print(data.get("contenttype"))
+
+print("\n========== ID ==========")
+print(data.get("id"))
+
+print("\n========== RCN ==========")
+print(data.get("rcn"))
