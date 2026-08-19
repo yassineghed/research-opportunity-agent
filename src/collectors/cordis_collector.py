@@ -298,7 +298,6 @@ class CordisCollector(BaseCollector):
             ) from exc
 
     def _extract_json_from_zip(self, archive, seen_archives=None):
-        """Recursively find JSON content inside nested zip files."""
         if seen_archives is None:
             seen_archives = set()
 
@@ -343,16 +342,6 @@ class CordisCollector(BaseCollector):
         return None
 
     def collect(self, query):
-        """
-        Complete CORDIS collection process.
-
-        1. Create extraction
-        2. Wait for completion
-        3. Download result
-
-        Returns:
-            Raw CORDIS JSON data.
-        """
 
         print("Creating CORDIS extraction...")
 
