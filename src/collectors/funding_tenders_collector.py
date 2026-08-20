@@ -11,14 +11,23 @@ class FundingTendersCollector:
     Collector for the European Commission Funding & Tenders Portal
     using the SEDIA Search API.
 
-    API:
-    https://api.tech.ec.europa.eu/search-api/prod/rest/search
+    Goal:
+    - Search Funding & Tenders opportunities
+    - Retrieve all matching pages
+    - Keep only open/forthcoming topics
+    - Clean and normalize the data
+    - Deduplicate opportunities
     """
 
-    BASE_URL = "https://api.tech.ec.europa.eu/search-api/prod/rest/search"
-    API_KEY = "SEDIA"
+    BASE_URL = (
+        "https://api.tech.ec.europa.eu/"
+        "search-api/prod/rest/search"
+    )
 
-    # Funding & Tenders opportunity types
+    API_KEY = "SEDIA"
+    LANGUAGE = "en"
+
+    # Funding & Tenders topic
     TYPE_TOPIC = "1"
 
     # Opportunity statuses
@@ -33,27 +42,25 @@ class FundingTendersCollector:
     def __init__(
         self,
         api_key: str = API_KEY,
-        language: str = "en"
+        language: str = LANGUAGE
     ):
         self.api_key = api_key
         self.language = language
 
     # ============================================================
-    # HTTP REQUEST
+    # SEARCH API
     # ============================================================
 
     def search(
         self,
         text: str,
-        page_number: int = 1,
-        page_size: int = 50
+        page_number: int
     ) -> Dict[str, Any]:
         """
-        Search the Funding & Tenders Portal.
+        Retrieve one page of Funding & Tenders results.
 
-        IMPORTANT:
-        The API requires POST for the query body.
-        GET requests return HTTP 405.
+        The API currently returns a maximum of 10 results
+        per request, so pagination is handled internally.
         """
 
         params = {
@@ -62,7 +69,6 @@ class FundingTendersCollector:
             "language": self.language
         }
 
-        # Elasticsearch-style query understood by SEDIA
         query = {
             "bool": {
                 "must": [
@@ -85,102 +91,83 @@ class FundingTendersCollector:
             }
         }
 
-        body = {
-            "query": json.dumps(query),
-            "pageNumber": page_number,
-            "pageSize": page_size
-        }
-
-        print("\n" + "=" * 70)
-        print("FUNDING & TENDERS API REQUEST")
-        print("=" * 70)
-
-        print(f"Search text : {text}")
-        print(f"Page        : {page_number}")
-        print(f"Page size   : {page_size}")
-        print(f"URL         : {self.BASE_URL}")
-
-        query = {
-            "bool": {
-                "must": [
-                    {
-                        "terms": {
-                            "type": ["1"]
-                        }
-                    },
-                    {
-                        "terms": {
-                            "status": [
-                                "31094501",
-                                "31094502"
-                            ]
-                        }
-                    }
-                ]
-            }
-        }
-
-        languages = ["en"]
+        languages = [
+            self.language
+        ]
 
         sort = {
             "field": "sortStatus",
             "order": "ASC"
         }
 
+        files = {
+            "query": (
+                "blob",
+                json.dumps(query),
+                "application/json"
+            ),
+            "languages": (
+                "blob",
+                json.dumps(languages),
+                "application/json"
+            ),
+            "sort": (
+                "blob",
+                json.dumps(sort),
+                "application/json"
+            )
+        }
+
         response = requests.post(
             self.BASE_URL,
             params=params,
-            files={
-                "query": (
-                    "blob",
-                    json.dumps(query),
-                    "application/json"
-                ),
-                "languages": (
-                    "blob",
-                    json.dumps(languages),
-                    "application/json"
-                ),
-                "sort": (
-                    "blob",
-                    json.dumps(sort),
-                    "application/json"
-                )
+            files=files,
+            data={
+                "pageNumber": page_number,
+                "pageSize": 10
             },
             timeout=30
         )
 
-        print(f"Status      : {response.status_code}")
+        print(
+            f"Page {page_number} | "
+            f"HTTP {response.status_code}"
+        )
 
         response.raise_for_status()
 
         return response.json()
 
     # ============================================================
-    # TEXT CLEANING
+    # CLEAN HTML
     # ============================================================
 
     @staticmethod
-    def clean_html(text: Optional[str]) -> str:
-        """
-        Remove HTML tags and decode HTML entities.
-        """
+    def clean_html(
+        text: Optional[str]
+    ) -> str:
 
         if not text:
             return ""
 
-        text = unescape(text)
+        text = unescape(str(text))
 
-        # Remove HTML tags
-        text = re.sub(r"<[^>]+>", " ", text)
+        text = re.sub(
+            r"<[^>]+>",
+            " ",
+            text
+        )
 
-        # Normalize whitespace
-        text = re.sub(r"\s+", " ", text)
+        text = re.sub(
+            r"\s+",
+            " ",
+            text
+        )
 
         return text.strip()
 
     # ============================================================
-    # METADATA HELPER
+    # METADATA
     # ============================================================
 
     @staticmethod
@@ -189,17 +176,11 @@ class FundingTendersCollector:
         field: str,
         default: Any = None
     ) -> Any:
-        """
-        SEDIA metadata fields are usually stored as lists.
 
-        Example:
-            "title": ["My opportunity"]
-
-        This helper returns:
-            "My opportunity"
-        """
-
-        value = metadata.get(field, default)
+        value = metadata.get(
+            field,
+            default
+        )
 
         if isinstance(value, list):
 
@@ -211,35 +192,33 @@ class FundingTendersCollector:
         return value
 
     # ============================================================
-    # DATE PARSER
+    # DATE
     # ============================================================
 
     @staticmethod
-    def parse_date(date_string: Optional[str]) -> Optional[str]:
-        """
-        Convert SEDIA date format to YYYY-MM-DD.
-
-        Example:
-            2027-12-01T00:00:00.000+0000
-
-        becomes:
-            2027-12-01
-        """
+    def parse_date(
+        date_string: Optional[str]
+    ) -> Optional[str]:
 
         if not date_string:
             return None
 
+        date_string = str(date_string)
+
         try:
+
             return datetime.fromisoformat(
-                date_string.replace("Z", "+00:00")
+                date_string.replace(
+                    "Z",
+                    "+00:00"
+                )
             ).date().isoformat()
 
         except ValueError:
 
-            # Fallback for SEDIA's +0000 format
             match = re.match(
                 r"(\d{4}-\d{2}-\d{2})",
-                str(date_string)
+                date_string
             )
 
             if match:
@@ -248,48 +227,53 @@ class FundingTendersCollector:
         return None
 
     # ============================================================
-    # EXTRACT KEYWORDS
+    # KEYWORDS
     # ============================================================
 
     @staticmethod
-    def extract_keywords(metadata: Dict[str, Any]) -> List[str]:
-        """
-        Extract useful keywords from SEDIA metadata.
-        """
+    def extract_keywords(
+        metadata: Dict[str, Any]
+    ) -> List[str]:
 
         keywords = []
 
-        # Explicit keywords
-        raw_keywords = metadata.get("keywords", [])
+        fields = [
+            "keywords",
+            "crossCuttingPriorities"
+        ]
 
-        if isinstance(raw_keywords, list):
-            for keyword in raw_keywords:
-                if keyword and keyword not in keywords:
-                    keywords.append(str(keyword))
+        for field in fields:
 
-        # Cross-cutting priorities
-        priorities = metadata.get(
-            "crossCuttingPriorities",
-            []
-        )
+            values = metadata.get(
+                field,
+                []
+            )
 
-        if isinstance(priorities, list):
-            for priority in priorities:
+            if not isinstance(values, list):
+                values = [values]
 
-                if priority and priority not in keywords:
-                    keywords.append(str(priority))
+            for value in values:
+
+                if value:
+
+                    value = str(value).strip()
+
+                    if (
+                        value
+                        and value not in keywords
+                    ):
+                        keywords.append(value)
 
         return keywords
 
     # ============================================================
-    # EXTRACT TOPICS
+    # TOPICS
     # ============================================================
 
     @staticmethod
-    def extract_topics(metadata: Dict[str, Any]) -> List[str]:
-        """
-        Extract topic/programme information.
-        """
+    def extract_topics(
+        metadata: Dict[str, Any]
+    ) -> List[str]:
 
         topics = []
 
@@ -302,65 +286,74 @@ class FundingTendersCollector:
 
         for field in fields:
 
-            value = metadata.get(field, [])
+            values = metadata.get(
+                field,
+                []
+            )
 
-            if isinstance(value, list):
+            if not isinstance(values, list):
+                values = [values]
 
-                for item in value:
+            for value in values:
 
-                    if item and str(item) not in topics:
-                        topics.append(str(item))
+                if value:
 
-            elif value:
+                    value = str(value).strip()
 
-                if str(value) not in topics:
-                    topics.append(str(value))
+                    if (
+                        value
+                        and value not in topics
+                    ):
+                        topics.append(value)
 
         return topics
 
     # ============================================================
-    # EXTRACT ELIGIBILITY
+    # ELIGIBILITY
     # ============================================================
 
     @staticmethod
     def extract_eligibility(
         metadata: Dict[str, Any]
     ) -> str:
-        """
-        Extract eligibility information from topic conditions.
-        """
 
         conditions = metadata.get(
             "topicConditions",
             []
         )
 
-        if isinstance(conditions, list):
+        if isinstance(
+            conditions,
+            list
+        ):
 
-            if conditions:
-                return FundingTendersCollector.clean_html(
-                    conditions[0]
+            cleaned = []
+
+            for condition in conditions:
+
+                condition = (
+                    FundingTendersCollector
+                    .clean_html(condition)
                 )
 
-        elif conditions:
+                if condition:
+                    cleaned.append(condition)
 
-            return FundingTendersCollector.clean_html(
-                str(conditions)
-            )
+            return " ".join(cleaned)
 
-        return ""
+        return (
+            FundingTendersCollector
+            .clean_html(conditions)
+        )
 
     # ============================================================
-    # MAP API RESULT
+    # PARSE RESULT
     # ============================================================
 
     def parse_result(
         self,
         result: Dict[str, Any]
     ) -> Optional[Dict[str, Any]]:
-        """
-        Convert one SEDIA result into the project's Opportunity format.
-        """
 
         metadata = result.get(
             "metadata",
@@ -383,6 +376,18 @@ class FundingTendersCollector:
             return None
 
         # --------------------------------------------------------
+        # STATUS
+        # --------------------------------------------------------
+
+        status = self.get_metadata(
+            metadata,
+            "status"
+        )
+
+        if status not in self.ALLOWED_STATUSES:
+            return None
+
+        # --------------------------------------------------------
         # TITLE
         # --------------------------------------------------------
 
@@ -394,6 +399,13 @@ class FundingTendersCollector:
             or result.get("summary")
             or ""
         )
+
+        title = self.clean_html(
+            title
+        )
+
+        if not title:
+            return None
 
         # --------------------------------------------------------
         # DESCRIPTION
@@ -414,53 +426,26 @@ class FundingTendersCollector:
         )
 
         # --------------------------------------------------------
-        # STATUS
-        # --------------------------------------------------------
-
-        status = self.get_metadata(
-            metadata,
-            "status"
-        )
-
-        # Safety check.
-        # The API has been observed returning records that don't
-        # respect the requested status filter.
-        if status not in self.ALLOWED_STATUSES:
-            return None
-
-        # --------------------------------------------------------
         # DEADLINE
         # --------------------------------------------------------
 
-        deadline_raw = self.get_metadata(
-            metadata,
-            "deadlineDate"
-        )
-
         deadline = self.parse_date(
-            deadline_raw
-        )
-
-        # --------------------------------------------------------
-        # URL
-        # --------------------------------------------------------
-
-        url = (
             self.get_metadata(
                 metadata,
-                "url"
+                "deadlineDate"
             )
-            or result.get("url")
         )
 
-        # Prefer the human-readable Funding & Tenders page.
-        if url and "/data/topicDetails/" in url:
+        # --------------------------------------------------------
+        # OPENING DATE
+        # --------------------------------------------------------
 
-            url = (
-                "https://ec.europa.eu/info/funding-tenders/"
-                "opportunities/portal/screen/opportunities/"
-                f"topic-details/{opportunity_id}"
+        opening_date = self.parse_date(
+            self.get_metadata(
+                metadata,
+                "startDate"
             )
+        )
 
         # --------------------------------------------------------
         # CALL
@@ -479,21 +464,48 @@ class FundingTendersCollector:
         )
 
         # --------------------------------------------------------
+        # URL
+        # --------------------------------------------------------
+
+        url = (
+            self.get_metadata(
+                metadata,
+                "url"
+            )
+            or result.get("url")
+        )
+
+        if url and "/data/topicDetails/" in url:
+
+            url = (
+                "https://ec.europa.eu/info/"
+                "funding-tenders/opportunities/"
+                "portal/screen/opportunities/"
+                f"topic-details/{opportunity_id}"
+            )
+
+        # --------------------------------------------------------
         # ORGANIZATION
         # --------------------------------------------------------
 
-        # SEDIA does not always expose a simple "organization"
-        # field for a topic. The programme/call is therefore safer
-        # than inventing a grant authority.
         organization = (
-            "European Commission"
+            self.get_metadata(
+                metadata,
+                "organisation"
+            )
+            or self.get_metadata(
+                metadata,
+                "organization"
+            )
+            or "European Commission"
         )
 
         # --------------------------------------------------------
         # BUILD OPPORTUNITY
         # --------------------------------------------------------
 
-        opportunity = {
+        return {
+
             "id": opportunity_id,
 
             "title": title,
@@ -520,81 +532,74 @@ class FundingTendersCollector:
 
             "url": url,
 
-            # Additional useful fields
             "status": status,
 
             "call": call,
 
             "call_identifier": call_identifier,
 
-            "programme_period": self.get_metadata(
-                metadata,
-                "programmePeriod"
-            ),
-
-            "action_type": self.get_metadata(
-                metadata,
-                "typesOfAction"
-            ),
-
-            "opening_date": self.parse_date(
+            "programme_period": (
                 self.get_metadata(
                     metadata,
-                    "startDate"
+                    "programmePeriod"
                 )
-            )
+            ),
+
+            "action_type": (
+                self.get_metadata(
+                    metadata,
+                    "typesOfAction"
+                )
+            ),
+
+            "opening_date": opening_date
         }
 
-        return opportunity
-
     # ============================================================
-    # COLLECT
+    # COLLECT ALL
     # ============================================================
 
     def collect(
         self,
-        text: str,
-        max_pages: int = 5,
-        page_size: int = 50
+        text: str
     ) -> List[Dict[str, Any]]:
         """
-        Collect funding opportunities.
+        Search and retrieve ALL matching opportunities.
 
-        Parameters
-        ----------
-        text:
-            Search query, e.g. "biodiversity"
+        Pagination is handled internally.
 
-        max_pages:
-            Maximum number of API pages to retrieve.
-
-        page_size:
-            Number of results requested per API page.
+        Example:
+            collector.collect("AI")
         """
 
         print("\n")
         print("=" * 70)
-        print(f"SEARCHING FUNDING & TENDERS FOR: {text}")
+        print(
+            f"SEARCHING FUNDING & TENDERS FOR: {text}"
+        )
         print("=" * 70)
 
         opportunities = {}
 
-        for page in range(1, max_pages + 1):
+        page = 1
 
-            print(f"\nFetching page {page}...")
+        while True:
+
+            print(
+                f"\nFetching page {page}..."
+            )
 
             try:
 
                 data = self.search(
                     text=text,
-                    page_number=page,
-                    page_size=page_size
+                    page_number=page
                 )
 
             except requests.RequestException as e:
 
                 print(
-                    f"API request failed on page {page}: {e}"
+                    f"Request failed: {e}"
                 )
 
                 break
@@ -604,25 +609,35 @@ class FundingTendersCollector:
                 []
             )
 
-            total = data.get(
+            total_results = data.get(
                 "totalResults",
                 0
             )
 
             print(
-                f"API total results: {total}"
+                f"API total results: "
+                f"{total_results}"
             )
 
             print(
-                f"Results returned: {len(results)}"
+                f"Results returned: "
+                f"{len(results)}"
             )
 
+            # ----------------------------------------------------
+            # NO MORE RESULTS
+            # ----------------------------------------------------
+
             if not results:
-                print("No more results.")
+
+                print(
+                    "No more results."
+                )
+
                 break
 
             # ----------------------------------------------------
-            # PROCESS RESULTS
+            # PROCESS PAGE
             # ----------------------------------------------------
 
             page_new = 0
@@ -636,11 +651,9 @@ class FundingTendersCollector:
                 if not opportunity:
                     continue
 
-                opportunity_id = opportunity["id"]
-
-                # ------------------------------------------------
-                # DEDUPLICATION
-                # ------------------------------------------------
+                opportunity_id = (
+                    opportunity["id"]
+                )
 
                 if opportunity_id not in opportunities:
 
@@ -651,7 +664,8 @@ class FundingTendersCollector:
                     page_new += 1
 
             print(
-                f"New opportunities from page: {page_new}"
+                f"New opportunities: "
+                f"{page_new}"
             )
 
             print(
@@ -660,12 +674,22 @@ class FundingTendersCollector:
             )
 
             # ----------------------------------------------------
-            # STOP IF LAST PAGE
+            # LAST PAGE
             # ----------------------------------------------------
 
-            if len(results) == 0:
-                print("No more results.")
+            if (
+                len(results) < 10
+                or
+                len(opportunities) >= total_results
+            ):
+
+                print(
+                    "\nAll API results have been processed."
+                )
+
                 break
+
+            page += 1
 
         return list(
             opportunities.values()
@@ -673,17 +697,18 @@ class FundingTendersCollector:
 
 
 # ================================================================
-# MAIN TEST
+# TEST
 # ================================================================
+
+from pprint import pprint
+
 
 if __name__ == "__main__":
 
     collector = FundingTendersCollector()
 
     opportunities = collector.collect(
-        text="biodiversity",
-        max_pages=5,
-        page_size=50
+        text="AI"
     )
 
     print("\n")
@@ -694,41 +719,33 @@ if __name__ == "__main__":
     )
     print("=" * 70)
 
-    for i, opportunity in enumerate(
-        opportunities,
-        start=1
-    ):
+    if not opportunities:
+        print("\nNo opportunities found.")
+        exit()
 
-        print("\n" + "-" * 70)
+    opportunity = opportunities[0]
 
-        print(
-            f"Opportunity {i}"
+    print("\n")
+    print("=" * 70)
+    print("FIRST OPPORTUNITY")
+    print("=" * 70)
+
+    for field, value in opportunity.items():
+
+        print(f"\nFIELD: {field}")
+        print(f"TYPE : {type(value).__name__}")
+        print(f"VALUE: ", end="")
+
+        pprint(
+            value,
+            sort_dicts=False
         )
 
-        print(
-            f"ID: {opportunity['id']}"
-        )
+    print("\n")
+    print("=" * 70)
+    print("ALL AVAILABLE FIELDS")
+    print("=" * 70)
 
-        print(
-            f"Title: {opportunity['title']}"
-        )
-
-        print(
-            f"Type: {opportunity['type']}"
-        )
-
-        print(
-            f"Status: {opportunity['status']}"
-        )
-
-        print(
-            f"Deadline: {opportunity['deadline']}"
-        )
-
-        print(
-            f"Call: {opportunity['call']}"
-        )
-
-        print(
-            f"URL: {opportunity['url']}"
-        )
+    print(
+        list(opportunity.keys())
+    )
