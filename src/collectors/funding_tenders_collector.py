@@ -3,7 +3,11 @@ import json
 import re
 from datetime import datetime
 from html import unescape
+from pathlib import Path
 from typing import List, Dict, Any, Optional
+
+from src.loaders import DataLoader
+from src.processors import OpportunityProcessor
 
 
 class FundingTendersCollector:
@@ -38,6 +42,12 @@ class FundingTendersCollector:
         STATUS_FORTHCOMING,
         STATUS_OPEN
     }
+    DEFAULT_OUTPUT_PATH = (
+        Path(__file__).resolve().parents[2]
+        / "data"
+        / "processed"
+        / "opportunities.json"
+    )
 
     def __init__(
         self,
@@ -694,6 +704,29 @@ class FundingTendersCollector:
         return list(
             opportunities.values()
         )
+
+    def collect_processed(
+        self,
+        text: str
+    ):
+        raw_opportunities = self.collect(text)
+        return OpportunityProcessor.process_many(
+            raw_opportunities,
+            source="funding_tenders",
+        )
+
+    def collect_processed_and_save(
+        self,
+        text: str,
+        output_path: str | Path | None = None,
+    ):
+        processed_opportunities = self.collect_processed(text)
+        target_path = Path(output_path) if output_path is not None else self.DEFAULT_OUTPUT_PATH
+        DataLoader.save_opportunities(
+            target_path,
+            processed_opportunities,
+        )
+        return processed_opportunities
 
 
 # ================================================================

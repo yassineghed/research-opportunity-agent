@@ -6,6 +6,7 @@ import zipfile
 import requests
 
 from src.collectors.base_collector import BaseCollector
+from src.processors import OpportunityProcessor
 
 
 class CordisCollector(BaseCollector):
@@ -341,6 +342,151 @@ class CordisCollector(BaseCollector):
 
         return None
 
+    @staticmethod
+    def _get_nested_value(payload, path, default=None):
+        current_value = payload
+
+        for key in path:
+            if not isinstance(current_value, dict):
+                return default
+            current_value = current_value.get(key)
+            if current_value is None:
+                return default
+
+        return current_value
+
+    @staticmethod
+    def _as_list(value):
+        if value is None:
+            return []
+        if isinstance(value, list):
+            return value
+        return [value]
+
+    def _extract_topics(self, payload):
+        topics = []
+        seen_topics = set()
+
+        relation_paths = [
+            ("relations", "categories"),
+            ("relations", "associations"),
+        ]
+
+        for path in relation_paths:
+            items = self._as_list(self._get_nested_value(payload, path, []))
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+
+                title = item.get("title")
+                if not title:
+                    continue
+
+                normalized_title = str(title).strip()
+                if not normalized_title:
+                    continue
+
+                topic_key = normalized_title.casefold()
+                if topic_key in seen_topics:
+                    continue
+
+                seen_topics.add(topic_key)
+                topics.append(normalized_title)
+
+        return topics
+
+    def _extract_best_url(self, payload):
+        direct_url = payload.get("url") or payload.get("physUrl")
+        if direct_url:
+            return direct_url
+
+        for association in self._as_list(
+            self._get_nested_value(payload, ("relations", "associations"), [])
+        ):
+            if not isinstance(association, dict):
+                continue
+
+            candidate_url = association.get("physUrl") or association.get("url")
+            if candidate_url:
+                return candidate_url
+
+        payload_id = payload.get("id")
+        if payload_id:
+            return f"https://cordis.europa.eu/article/id/{payload_id}"
+
+        return ""
+
+    def parse_record(self, payload):
+        if not isinstance(payload, dict):
+            return None
+
+        opportunity_id = payload.get("id") or payload.get("rcn")
+        title = payload.get("title") or payload.get("acronym")
+
+        if not opportunity_id or not title:
+            return None
+
+        description_parts = [
+            payload.get("teaser"),
+            payload.get("body"),
+            payload.get("objective"),
+        ]
+        description = "\n\n".join(
+            str(part).strip()
+            for part in description_parts
+            if part not in (None, "")
+        )
+
+        source = payload.get("contenttype") or "cordis"
+        organization = payload.get("basedOn") or "CORDIS"
+        deadline = (
+            payload.get("endDate")
+            or payload.get("deadline")
+            or payload.get("contentUpdateDate")
+            or payload.get("lastUpdateDate")
+        )
+        status = payload.get("status") or (
+            "archived" if payload.get("archivedDate") else ""
+        )
+
+        return {
+            "id": opportunity_id,
+            "title": title,
+            "type": payload.get("contenttype") or "opportunity",
+            "organization": organization,
+            "description": description,
+            "keywords": payload.get("keywords", []),
+            "topics": self._extract_topics(payload),
+            "eligibility": payload.get("eligibility") or "",
+            "deadline": deadline,
+            "url": self._extract_best_url(payload),
+            "source": source,
+            "status": status,
+        }
+
+    def parse_payload(self, payload):
+        if isinstance(payload, list):
+            records = payload
+        elif isinstance(payload, dict):
+            for field_name in ("results", "opportunities", "data", "items", "payload"):
+                candidate_records = payload.get(field_name)
+                if isinstance(candidate_records, list):
+                    records = candidate_records
+                    break
+            else:
+                records = [payload]
+        else:
+            return []
+
+        opportunities = []
+
+        for record in records:
+            parsed_record = self.parse_record(record)
+            if parsed_record is not None:
+                opportunities.append(parsed_record)
+
+        return opportunities
+
     def collect(self, query):
 
         print("Creating CORDIS extraction...")
@@ -375,3 +521,11 @@ class CordisCollector(BaseCollector):
                 return self.download_file(file_url)
 
             time.sleep(5)
+
+    def collect_processed(self, query):
+        raw_payload = self.collect(query)
+        parsed_opportunities = self.parse_payload(raw_payload)
+        return OpportunityProcessor.process_many(
+            parsed_opportunities,
+            source="cordis",
+        )
