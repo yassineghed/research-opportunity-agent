@@ -1,6 +1,7 @@
 import requests
 import json
 import re
+from dataclasses import asdict
 from datetime import datetime
 from html import unescape
 from pathlib import Path
@@ -715,18 +716,86 @@ class FundingTendersCollector:
             source="funding_tenders",
         )
 
+    @staticmethod
+    def _build_identity(opportunity) -> tuple[str, str]:
+        source = str(opportunity.source or "").strip().lower()
+        opportunity_id = str(opportunity.id).strip()
+        return source, opportunity_id
+
+    @staticmethod
+    def _is_same_opportunity(left, right) -> bool:
+        return asdict(left) == asdict(right)
+
+    def _load_existing_processed(
+        self,
+        file_path: Path,
+    ):
+        if not file_path.exists():
+            return []
+
+        return DataLoader.load_opportunities(file_path)
+
+    def merge_processed_opportunities(
+        self,
+        new_opportunities,
+        output_path: str | Path | None = None,
+    ):
+        target_path = Path(output_path) if output_path is not None else self.DEFAULT_OUTPUT_PATH
+        existing_opportunities = self._load_existing_processed(target_path)
+        merged_lookup = {
+            self._build_identity(opportunity): opportunity
+            for opportunity in existing_opportunities
+        }
+
+        summary = {
+            "new": 0,
+            "updated": 0,
+            "unchanged": 0,
+            "total_before": len(existing_opportunities),
+            "total_after": 0,
+        }
+
+        for opportunity in new_opportunities:
+            identity = self._build_identity(opportunity)
+            existing_opportunity = merged_lookup.get(identity)
+
+            if existing_opportunity is None:
+                merged_lookup[identity] = opportunity
+                summary["new"] += 1
+                continue
+
+            if self._is_same_opportunity(existing_opportunity, opportunity):
+                summary["unchanged"] += 1
+                continue
+
+            merged_lookup[identity] = opportunity
+            summary["updated"] += 1
+
+        merged_opportunities = list(merged_lookup.values())
+        summary["total_after"] = len(merged_opportunities)
+
+        DataLoader.save_opportunities(
+            target_path,
+            merged_opportunities,
+        )
+
+        return {
+            "opportunities": merged_opportunities,
+            "summary": summary,
+            "output_path": target_path,
+        }
+
     def collect_processed_and_save(
         self,
         text: str,
         output_path: str | Path | None = None,
     ):
         processed_opportunities = self.collect_processed(text)
-        target_path = Path(output_path) if output_path is not None else self.DEFAULT_OUTPUT_PATH
-        DataLoader.save_opportunities(
-            target_path,
+        merge_result = self.merge_processed_opportunities(
             processed_opportunities,
+            output_path=output_path,
         )
-        return processed_opportunities
+        return merge_result
 
 
 # ================================================================

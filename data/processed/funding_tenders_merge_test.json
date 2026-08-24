@@ -1,0 +1,56 @@
+[
+  {
+    "id": "A1",
+    "title": "Alpha",
+    "type": "funding_opportunity",
+    "organization": "EC",
+    "description": "d1 updated",
+    "keywords": [
+      "ai"
+    ],
+    "topics": [
+      "ml"
+    ],
+    "eligibility": "open",
+    "deadline": "2026-12-01",
+    "url": "u1",
+    "source": "funding_tenders",
+    "status": "31094502"
+  },
+  {
+    "id": "B2",
+    "title": "Beta",
+    "type": "funding_opportunity",
+    "organization": "EC",
+    "description": "d2",
+    "keywords": [
+      "vision"
+    ],
+    "topics": [
+      "cv"
+    ],
+    "eligibility": "open",
+    "deadline": "2026-12-15",
+    "url": "u2",
+    "source": "funding_tenders",
+    "status": "31094502"
+  },
+  {
+    "id": "C3",
+    "title": "Gamma",
+    "type": "funding_opportunity",
+    "organization": "EC",
+    "description": "d3",
+    "keywords": [
+      "robotics"
+    ],
+    "topics": [
+      "automation"
+    ],
+    "eligibility": "open",
+    "deadline": "2027-01-10",
+    "url": "u3",
+    "source": "funding_tenders",
+    "status": "31094501"
+  }
+]
