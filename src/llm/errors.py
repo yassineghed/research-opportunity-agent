@@ -17,10 +17,14 @@ class LLMError(Exception):
         self.original_exception = original_exception
 
     def __str__(self) -> str:
-        if self.status_code is None:
-            return f"{self.provider}: {self.message}"
+        details = ""
+        if self.original_exception is not None:
+            details = f" | raw: {self.original_exception}"
 
-        return f"{self.provider} ({self.status_code}): {self.message}"
+        if self.status_code is None:
+            return f"{self.provider}: {self.message}{details}"
+
+        return f"{self.provider} ({self.status_code}): {self.message}{details}"
 
 
 class LLMQuotaExceededError(LLMError):

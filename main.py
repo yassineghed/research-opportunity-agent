@@ -26,6 +26,14 @@ TOP_K_RETRIEVAL = 5
 TOP_K_FINAL = 3
 
 
+def _env_flag(name: str, default: bool) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _build_opportunity_index(opportunities, builder, embedder):
     opportunity_texts = [builder.build(opportunity) for opportunity in opportunities]
     opportunity_vectors = embedder.encode_batch(opportunity_texts)
@@ -72,6 +80,8 @@ def _is_provider_llm_error(exc: Exception) -> bool:
 
 
 def main() -> None:
+    allow_llm_fallback = _env_flag("LLM_ALLOW_FALLBACK", True)
+
     researchers = DataLoader.load_researchers(PROJECT_ROOT / "data" / "mock" / "researchers.json")
     opportunities = DataLoader.load_opportunities(PROJECT_ROOT / "data" / "mock" / "opportunities.json")
 
@@ -104,11 +114,17 @@ def main() -> None:
     print(f"Loaded {len(researchers)} researchers and {len(opportunities)} opportunities")
     print(f"Embedding model: {EMBEDDING_MODEL}")
     print(f"Retrieval top-k: {TOP_K_RETRIEVAL} | Final top-k: {TOP_K_FINAL}")
+    print(f"LLM fallback enabled: {allow_llm_fallback}")
     print(f"Gemini model: {gemini_client.llm.model_name}")
     print(f"Grok model: {grok_client.llm.model_name}")
-    print()
+    print(flush=True)
 
-    for researcher in researchers:
+    for researcher_index, researcher in enumerate(researchers, start=1):
+        print(
+            f"[{researcher_index}/{len(researchers)}] Preparing researcher: "
+            f"{researcher.fullname} - {researcher.institution}",
+            flush=True,
+        )
         researcher_text = profile_builder.build(researcher)
         researcher_vector = embedder.encode(researcher_text)
 
@@ -127,6 +143,11 @@ def main() -> None:
             recommendations: list[dict[str, Any]] = []
 
             try:
+                print(
+                    f"[{researcher_index}/{len(researchers)}] Requesting {provider_name} rerank "
+                    f"for {researcher.fullname} with {len(candidate_opportunities)} candidates...",
+                    flush=True,
+                )
                 reranked = reranker.rerank(researcher, candidate_opportunities)
                 recommendations = reranked.get("recommendations", [])
                 recommendations = sorted(
@@ -134,20 +155,29 @@ def main() -> None:
                     key=lambda item: item.get("score", 0),
                     reverse=True,
                 )[:TOP_K_FINAL]
+                print(
+                    f"[{researcher_index}/{len(researchers)}] {provider_name} rerank completed.",
+                    flush=True,
+                )
             except Exception as exc:
                 if not _is_provider_llm_error(exc):
                     raise
 
                 rerank_error = exc
-                recommendations = [
-                    {
-                        "opportunity_id": item["opportunity_id"],
-                        "score": round(item["score"] * 100, 0),
-                        "reason": f"{provider_name} unavailable; using cosine similarity fallback.",
-                        "matching_areas": [],
-                    }
-                    for item in top_candidates[:TOP_K_FINAL]
-                ]
+                print(
+                    f"[{researcher_index}/{len(researchers)}] {provider_name} rerank failed: {exc}",
+                    flush=True,
+                )
+                if allow_llm_fallback:
+                    recommendations = [
+                        {
+                            "opportunity_id": item["opportunity_id"],
+                            "score": round(item["score"] * 100, 0),
+                            "reason": f"{provider_name} unavailable; using cosine similarity fallback.",
+                            "matching_areas": [],
+                        }
+                        for item in top_candidates[:TOP_K_FINAL]
+                    ]
 
             provider_results.append((provider_name, recommendations, rerank_error))
 
@@ -173,7 +203,10 @@ def main() -> None:
             if rerank_error is not None:
                 print()
                 print(f"{provider_name} error: {rerank_error}")
-                print("Displayed cosine fallback for this researcher.")
+                if allow_llm_fallback:
+                    print("Displayed cosine fallback for this researcher.")
+                else:
+                    print("No cosine fallback displayed because LLM fallback is disabled.")
 
             print()
             print(f"Overlap between cosine top 3 and {provider_name} top 3: {overlap}/3")
