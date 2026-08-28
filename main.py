@@ -16,7 +16,9 @@ load_dotenv(PROJECT_ROOT / ".env")
 from src.builders.opportunity.structured_opportunity_builder import StructuredOpportunityBuilder
 from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
 from src.embeddings.embedder import Embedder
+from src.embeddings.opportunity_index import build_opportunity_index
 from src.llm.client import LLMClient
+from src.llm.errors import LLMError
 from src.loaders import DataLoader
 from src.matching.ranker import OpportunityRanker
 from src.reranking.llm_reranker import LLMReranker
@@ -34,13 +36,7 @@ def _env_flag(name: str, default: bool) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
-def _build_opportunity_index(opportunities, builder, embedder):
-    opportunity_texts = [builder.build(opportunity) for opportunity in opportunities]
-    opportunity_vectors = embedder.encode_batch(opportunity_texts)
-    return opportunity_vectors
-
-
-def _format_recommendations(recommendations: list[dict[str, Any]], opportunities_by_id: dict[int, Any]) -> str:
+def _format_recommendations(recommendations: list[dict[str, Any]], opportunities_by_id: dict) -> str:
     lines: list[str] = []
 
     for index, recommendation in enumerate(recommendations[:TOP_K_FINAL], start=1):
@@ -61,7 +57,7 @@ def _format_recommendations(recommendations: list[dict[str, Any]], opportunities
     return "\n".join(lines)
 
 
-def _format_retrieval_results(results: list[dict[str, Any]], opportunities_by_id: dict[int, Any], limit: int) -> str:
+def _format_retrieval_results(results: list[dict[str, Any]], opportunities_by_id: dict, limit: int) -> str:
     lines: list[str] = []
 
     for index, item in enumerate(results[:limit], start=1):
@@ -76,7 +72,8 @@ def _format_retrieval_results(results: list[dict[str, Any]], opportunities_by_id
 
 
 def _is_provider_llm_error(exc: Exception) -> bool:
-    return hasattr(exc, "provider") and hasattr(exc, "message")
+    """Return True only for typed LLM errors that have a graceful fallback."""
+    return isinstance(exc, LLMError)
 
 
 def main() -> None:
@@ -102,15 +99,24 @@ def main() -> None:
         ("Qwen", LLMReranker(qwen_client)),
     ]
 
-    opportunity_vectors = _build_opportunity_index(opportunities, opportunity_builder, embedder)
-    opportunities_by_id = {opportunity.id: opportunity for opportunity in opportunities}
-
     print(f"Loaded {len(researchers)} researchers and {len(opportunities)} opportunities")
     print(f"Embedding model: {EMBEDDING_MODEL}")
+    print(f"Building opportunity index (this may take a moment)...", flush=True)
+
+    # Build the structured embedding index — one vector per opportunity.
+    index_records = build_opportunity_index(
+        opportunities,
+        opportunity_builder,
+        embedder,
+        show_progress=True,
+    )
+    opportunities_by_id = {opp.id: opp for opp in opportunities}
+
+    print(f"Index built: {len(index_records)} records, dim={embedder.embedding_dim}")
     print(f"Retrieval top-k: {TOP_K_RETRIEVAL} | Final top-k: {TOP_K_FINAL}")
     print(f"LLM fallback enabled: {allow_llm_fallback}")
     print(f"Gemini model: {gemini_client.llm.model_name}")
-    print(f"Qwen model: {qwen_client.llm.model_name}")
+    print(f"Qwen model:   {qwen_client.llm.model_name}")
     print(flush=True)
 
     for researcher_index, researcher in enumerate(researchers, start=1):
@@ -124,8 +130,8 @@ def main() -> None:
 
         retrieval_results = ranker.rank(
             researcher_vector,
-            opportunity_vectors,
-            opportunities,
+            index_records,
+            top_k=TOP_K_RETRIEVAL,
         )
         top_candidates = retrieval_results[:TOP_K_RETRIEVAL]
         candidate_opportunities = [opportunities_by_id[item["opportunity_id"]] for item in top_candidates]
