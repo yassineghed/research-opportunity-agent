@@ -83,7 +83,7 @@ def main() -> None:
     allow_llm_fallback = _env_flag("LLM_ALLOW_FALLBACK", True)
 
     researchers = DataLoader.load_researchers(PROJECT_ROOT / "data" / "mock" / "researchers.json")
-    opportunities = DataLoader.load_opportunities(PROJECT_ROOT / "data" / "mock" / "opportunities.json")
+    opportunities = DataLoader.load_opportunities(PROJECT_ROOT / "data" / "processed" / "opportunities.json")
 
     if not researchers:
         raise ValueError("No researchers found in mock data.")
@@ -94,18 +94,12 @@ def main() -> None:
     opportunity_builder = StructuredOpportunityBuilder()
     embedder = Embedder(EMBEDDING_MODEL)
     ranker = OpportunityRanker()
-    gemini_client = LLMClient(
-        provider="gemini",
-        model_name=os.getenv("GEMINI_MODEL") or os.getenv("LLM_MODEL"),
-    )
-    grok_client = LLMClient(
-        provider="grok",
-        model_name=os.getenv("GROK_MODEL") or "grok-4.5-latest",
-    )
+    gemini_client = LLMClient(provider="gemini")
+    qwen_client = LLMClient(provider="qwen")
 
     llm_rerankers = [
         ("Gemini", LLMReranker(gemini_client)),
-        ("Grok", LLMReranker(grok_client)),
+        ("Qwen", LLMReranker(qwen_client)),
     ]
 
     opportunity_vectors = _build_opportunity_index(opportunities, opportunity_builder, embedder)
@@ -116,7 +110,7 @@ def main() -> None:
     print(f"Retrieval top-k: {TOP_K_RETRIEVAL} | Final top-k: {TOP_K_FINAL}")
     print(f"LLM fallback enabled: {allow_llm_fallback}")
     print(f"Gemini model: {gemini_client.llm.model_name}")
-    print(f"Grok model: {grok_client.llm.model_name}")
+    print(f"Qwen model: {qwen_client.llm.model_name}")
     print(flush=True)
 
     for researcher_index, researcher in enumerate(researchers, start=1):
