@@ -1,0 +1,14 @@
+[
+    {
+        "query_id": "eval-q-001",
+        "researcher_id": 1,
+        "relevant_opportunity_ids": [
+            "DIGITAL-2026-AI-PILOTING-10-SCREENING"
+        ],
+        "irrelevant_opportunity_ids": [
+            "HORIZON-CL3-2026-02-CS-ECCC-01",
+            "HORIZON-CL3-2026-02-CS-ECCC-02"
+        ],
+        "notes": "Synthetic evaluation query for Researcher 1."
+    }
+]
