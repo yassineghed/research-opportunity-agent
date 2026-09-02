@@ -1,0 +1,1316 @@
+{
+  "ids": [
+    "DIGITAL-2026-AI-PILOTING-10-SCREENING",
+    "HORIZON-CL3-2026-02-CS-ECCC-01",
+    "HORIZON-CL3-2026-02-CS-ECCC-02",
+    "DIGITAL-2026-SKILLS-10-DIGITAL-HEALTH-STEP",
+    "HORIZON-HLTH-2026-02-DISEASE-12",
+    "HORIZON-MISS-2026-05-SOIL-04",
+    "HORIZON-CL5-2026-10-D6-07",
+    "HORIZON-CL5-2026-10-D6-03",
+    "HORIZON-CL5-2026-10-D6-02",
+    "HORIZON-CL5-2026-10-D6-01",
+    "HORIZON-CL5-2026-10-D6-06",
+    "HORIZON-CL5-2026-10-D6-09",
+    "HORIZON-CL5-2026-10-D6-10",
+    "DIGITAL-2026-AI-DATA-10-COMPLIANCE",
+    "HORIZON-RAISE-2026-01-03",
+    "HORIZON-CL2-2026-01-HERITAGE-05",
+    "HORIZON-CL2-2026-01-DEMOCRACY-02",
+    "HORIZON-CL2-2026-01-DEMOCRACY-04",
+    "HORIZON-CL2-2026-01-DEMOCRACY-09",
+    "HORIZON-CL2-2026-01-HERITAGE-03",
+    "HORIZON-CL2-2026-01-HERITAGE-04",
+    "HORIZON-CL3-2026-01-DRS-02",
+    "PPPA-2026-YOUTH-SOCIAL-MEDIA-DESIGN",
+    "HORIZON-JU-IHI-2026-13-two-stage-02",
+    "HORIZON-CL5-2026-11-D3-23",
+    "HORIZON-CL2-2026-01-DEMOCRACY-01",
+    "HORIZON-CL2-2026-01-HERITAGE-01",
+    "HORIZON-CL2-2026-01-DEMOCRACY-10",
+    "HORIZON-CL2-2026-01-DEMOCRACY-07",
+    "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03",
+    "HORIZON-CL2-2026-01-DEMOCRACY-05",
+    "HORIZON-CL2-2026-01-DEMOCRACY-08",
+    "HORIZON-CL2-2026-01-DEMOCRACY-03",
+    "HORIZON-CL2-2026-01-DEMOCRACY-06",
+    "EDF-2026-RA-SIMTRAIN-MSAI",
+    "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+    "EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+    "DIGITAL-JU-CHIPS-2026-AI1-SG",
+    "DIGITAL-JU-CHIPS-2026-AI-GFP",
+    "HORIZON-CL5-2023-D3-03-03",
+    "DIGITAL-2023-CLOUD-AI-04-COORDINATEF",
+    "DIGITAL-2023-CLOUD-AI-04-GENOME",
+    "HORIZON-MISS-2023-SOIL-01-03",
+    "DIGITAL-2023-CLOUD-AI-04-IPCEI-EXPLOIT",
+    "DIGITAL-2023-CLOUD-AI-04-DEVELOPCITI",
+    "DIGITAL-2023-CLOUD-AI-04-ICU-DATA",
+    "DIGITAL-2022-CLOUD-AI-B-03-AI-ON-DEMAND",
+    "DIGITAL-2023-CLOUD-AI-04-AEROSEC",
+    "HORIZON-CL6-2026-04-GOVERNANCE-01",
+    "HORIZON-HLTH-2027-03-TOOL-08",
+    "HORIZON-CL4-2027-04-DIGITAL-EMERGING-10",
+    "HORIZON-CL4-2027-04-DATA-03",
+    "HORIZON-CL5-2027-06-D6-11",
+    "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage",
+    "HORIZON-CL5-2027-06-D6-05",
+    "HORIZON-CL5-2027-06-D6-04",
+    "HORIZON-CL4-2027-04-DIGITAL-EMERGING-04",
+    "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03",
+    "HORIZON-CL5-2027-03-D5-16",
+    "HORIZON-CL4-2027-04-DIGITAL-EMERGING-05",
+    "HORIZON-HLTH-2027-03-TOOL-02",
+    "HORIZON-CL5-2027-03-D5-14",
+    "HORIZON-CL5-2027-04-Two-Stage-D5-09",
+    "HORIZON-CL5-2027-03-D5-04",
+    "HORIZON-CL5-2027-03-D5-03",
+    "HORIZON-CL5-2027-03-D5-18",
+    "HORIZON-CL5-2027-03-D5-17",
+    "HORIZON-CL4-2027-04-DATA-09",
+    "HORIZON-RAISE-2027-01-02",
+    "HORIZON-CL5-2027-03-D5-20",
+    "HORIZON-CL5-2027-03-D5-15",
+    "HORIZON-CL5-2027-03-D5-05",
+    "HORIZON-CL5-2027-03-D5-06",
+    "HORIZON-CL5-2027-03-D5-08",
+    "HORIZON-HLTH-2027-03-TOOL-04",
+    "HORIZON-CL6-2027-02-FARM2FORK-08",
+    "HORIZON-CL2-2027-01-HERITAGE-06",
+    "HORIZON-CL2-2027-01-DEMOCRACY-04",
+    "HORIZON-CL2-2027-01-DEMOCRACY-05",
+    "HORIZON-CL2-2027-01-DEMOCRACY-07",
+    "HORIZON-CL2-2027-01-HERITAGE-02",
+    "HORIZON-CL2-2027-01-DEMOCRACY-02",
+    "HORIZON-CL2-2027-01-DEMOCRACY-06",
+    "HORIZON-CL2-2027-01-DEMOCRACY-08",
+    "HORIZON-CL2-2027-01-DEMOCRACY-03",
+    "HORIZON-CL2-2027-01-DEMOCRACY-01",
+    "HORIZON-CL6-2027-02-FARM2FORK-01",
+    "HORIZON-HLTH-2027-01-DISEASE-10",
+    "HORIZON-HLTH-2027-02-DISEASE-14-two-stage",
+    "HORIZON-CL6-2027-03-GOVERNANCE-03",
+    "HORIZON-CL6-2027-03-GOVERNANCE-02",
+    "HORIZON-HLTH-2027-02-DISEASE-01-two-stage",
+    "HORIZON-CL3-2027-02-CS-ECCC-01",
+    "HORIZON-CL3-2027-02-CS-ECCC-02",
+    "HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage",
+    "HORIZON-HLTH-2027-01-DISEASE-05",
+    "HORIZON-HLTH-2027-01-STAYHLTH-01",
+    "HORIZON-HLTH-2027-01-DISEASE-08",
+    "HORIZON-HLTH-2027-01-DISEASE-07",
+    "HORIZON-HLTH-2027-01-DISEASE-06",
+    "HORIZON-HLTH-2027-01-CARE-02",
+    "HORIZON-HLTH-2027-02-TOOL-01-two-stage",
+    "HORIZON-HLTH-2026-03-DISEASE-13",
+    "HORIZON-CL5-2027-02-D3-24",
+    "HORIZON-CL6-2027-03-GOVERNANCE-05",
+    "HORIZON-CL6-2027-03-GOVERNANCE-04",
+    "HORIZON-CL6-2027-03-GOVERNANCE-07",
+    "HORIZON-CL6-2027-03-GOVERNANCE-06",
+    "HORIZON-CL6-2027-03-GOVERNANCE-01",
+    "HORIZON-CL5-2024-D3-01-11",
+    "HORIZON-CL2-2024-TRANSFORMATIONS-01-06",
+    "HORIZON-CL4-2024-DATA-01-01",
+    "HORIZON-CL4-2024-DIGITAL-EMERGING-01-04",
+    "HORIZON-CL4-2024-DIGITAL-EMERGING-01-03",
+    "HORIZON-CL4-2024-HUMAN-01-07",
+    "HORIZON-CL4-2024-HUMAN-01-06",
+    "HORIZON-CL3-2023-DRS-01-06",
+    "HORIZON-CL6-2024-CircBio-01-6",
+    "HORIZON-CL3-2023-CS-01-01",
+    "HORIZON-CL3-2023-CS-01-03",
+    "EDF-2023-RA-DIGIT-HAAI",
+    "HORIZON-WIDERA-2024-ERA-01-12",
+    "HORIZON-CL5-2024-D3-02-01",
+    "HORIZON-CL5-2024-D2-01-05",
+    "HORIZON-CL5-2027-06-D6-12",
+    "HORIZON-CL5-2027-06-D6-08",
+    "HORIZON-CL4-2027-04-DIGITAL-EMERGING-11",
+    "HORIZON-CL4-2027-04-DATA-08",
+    "HORIZON-RAISE-2027-01-01",
+    "HORIZON-CL4-2027-04-DIGITAL-EMERGING-06",
+    "EDF-2023-DA-CYBER-DAAI"
+  ],
+  "metadata": [
+    {
+      "title": "Apply AI: Piloting AI-based image screening in medical centres",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-01",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-AI-PILOTING-10-SCREENING",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Approaches and tools for security in software and hardware development and assessment",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-15",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Enhancing the Security, Privacy and Robustness of AI Models and Systems (SecureAI)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-15",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-02-CS-ECCC-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Advanced Digital Skills for AI Uptake in Health",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-01",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-SKILLS-10-DIGITAL-HEALTH-STEP",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "European Partnership on Rare Diseases (ERDERA) (Phase 2)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-15",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-02-DISEASE-12",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Leveraging long-term field experiments and other datasets to develop AI-ready decision support systems for sustainable soil management",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-05-SOIL-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Supporting sustainable and smart urban mobility in Europe (CIVITAS)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Generative AI for smarter CCAM: enhancing perception, decision-making, and validation (CCAM Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Geopolitical competition and socioeconomic resilience in CCAM: an innovation and policy roadmap for EU leadership (CCAM Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Flagship-pilot: large-scale demonstrations of CCAM (CCAM Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Increasing competitiveness and resilience of multimodal freight transport and logistics for competitive supply chains",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Road Safety and resilience of rural areas",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-09",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Enhanced resilience in multimodal passenger transport through digital technologies and generative and discriminative AI",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-10-D6-10",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Digital solutions for regulatory compliance through data",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-01",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2026-AI-DATA-10-COMPLIANCE",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "RAISE Doctoral Networks for AI in Science (RAISE pilot)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-11-24",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2026-01-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Creative alliances: Fostering global partnerships in cultural policies and CCI innovation",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Understanding the forms of local democracy in low-income and low-middle income countries",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Sustainable paths to media viability",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Citizenship education as part of lifelong learning",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-09",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI integration in CCSI work practice: catalysing innovation and competitiveness",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Towards a fair and transparent market for cultural and creative content in the era of generative AI",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Multi-hazard approach and cumulative / cascading impacts",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-11-05",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Youth-Driven Social Media Design: Safe, Inclusive, and Publicly-Owned Social Media",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-06",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/PPPA-2026-YOUTH-SOCIAL-MEDIA-DESIGN",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "An AI Foundation Toxicology Model and Framework to Support Waiving a Second Species in Drug Safety Studies",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-08",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-IHI-2026-13-two-stage-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Data sharing to support the training and development of AI foundation models in the energy sector",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-12-01",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-23",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Tackling gender-based violence against politically active women and LGBTIQ people",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "“Artistic intelligence” : harnessing the power of the arts to address complex challenges, enhance soft skills and boost innovation and competitiveness",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-HERITAGE-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Digital and media literacy as drivers for democratic and civic resilience",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-10",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Supporting post-conflict democracy and reconstruction",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "DeepRAP: Deep Reasoning, Abstraction & Planning towards trustworthy Cognitive AI Systems",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-28",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Research and Innovation Network for a Union of Equality",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Electoral integrity in the digital context",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Government in transition – how governments change the way they work and prepare the civil service for the future",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Governing global commons sustainably",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-23",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2026-01-DEMOCRACY-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Modelling & simulation supported AI framework for military decision-making and training",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-29",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-RA-SIMTRAIN-MSAI",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI-based tactical situational awareness using swarms of small robots and drones – participation in a technological challenge\"",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-29",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAP-STEP",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI-based tactical situational awareness using swarms of small robots and drones – organisation of a technological challenge\"",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-09-29",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2026-LS-RA-CHALLENGE-DIGIT-AISAO",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI chip demonstrators for EU compute infrastructure",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-27",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-JU-CHIPS-2026-AI1-SG",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI compute evaluation and deployment platform for EU infrastructure",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-10-27",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-JU-CHIPS-2026-AI-GFP",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "System approach for grid planning and upgrade in support of a dominant electric mobility (vehicles and vessels) using AI tools",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-10-10",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2023-D3-03-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Coordination of AI sectorial testing and experimentation facilities",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-COORDINATEF",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Genome of Europe",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-GENOME",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Onsite digital technologies to monitor nutrients and chemical or biological stressors in soil and plants with relevance for food safety and nutrition",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-20",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2023-SOIL-01-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Cloud IPCEI Exploitation office",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-IPCEI-EXPLOIT",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Developing citiverse",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-DEVELOPCITI",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Federated European Infrastructure for intensive care units' (ICU) data",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-ICU-DATA",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Deployment of the AI-on-demand platform",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-08-29",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2022-CLOUD-AI-B-03-AI-ON-DEMAND",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Highly secure collaborative platform for aeronautics and security industry",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-09-26",
+      "status": "31094502",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-2023-CLOUD-AI-04-AEROSEC",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Additional activities for the European Partnership of Agriculture of Data",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2026-11-26",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Towards Artificial General Intelligence (AGI) for healthcare",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-03-TOOL-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Horizon scanning and foresight in future enabling digital technologies (CSA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Enhancing Resilience and Accuracy in Positioning, Navigation, and Timing (PNT) Systems and e-conspicuity solutions",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-10-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-06-D6-11",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-02-02",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "European CCAM knowledge hub and tools for safe and scalable deployment (CCAM Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-10-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-06-D6-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Holistic solutions for CCAM integration in critical scenarios (CCAM Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-10-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-06-D6-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Advanced integrated photonic devices for extended features and ultra-low power consumption (RIA) (Photonics Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Autonomous vessels in short sea shipping and inland waterways",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-16",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Apply AI: AI-Driven Robotics for Industry: Enabling System Integration and Adoption (IA) (Partnership in AI, Data and Robotics)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Advancing bio-printing of living cells for regenerative medicine",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-03-TOOL-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Onboard renewable energy solutions and energy saving measures to reduce the fuel consumption of ships by at least 55% (ZEWT Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-14",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Noise reduction breakthroughs for new ultraefficient aircraft",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-04-Two-Stage-D5-09",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Demonstration of zero emission coaches and buses in long distance operations (2ZERO Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Data-driven circular economy for e-mobility ecosystem (2ZERO Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Enhanced electric operation and battery durability (ZEWT Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-18",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Innovative Solutions for mitigating the environmental impact of waterborne transport in marine and aquatic Ecosystems (ZEWT Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-17",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Energy efficiency and sustainability of AI data processing in Data Centres (IA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Automated Scientific Discovery – Food (RAISE pilot)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-02-02",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Assessing the effect of airport operations on air quality and noise in nearby communities",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-20",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Prospective evaluation of nuclear power potential for shipping (ZEWT Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-15",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Higher Voltage, Megawatt Charging System compatible, modular powertrain for Heavy Duty Vehicles (HDV) (2ZERO Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Fire prevention and mitigation for EVs in confined areas (2ZERO Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Sustainable aircraft circular design and additive manufacturing, towards a climate neutral aviation",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-14",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Virtual Human Twins (VHTs) for integrated clinical decision support in prevention and diagnosis",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-03-TOOL-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI-powered foodome characterization",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-02-FARM2FORK-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Future-proofing sustainable cultural tourism",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-HERITAGE-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Addressing the impact of artificial intelligence, cyberviolence, and deepfakes on equality, democracy and inclusive societies",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development aid and democratic governance",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "The role of private companies in democracy",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI4Creatives Support Platform: embracing a fair AI revolution",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-HERITAGE-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Women’s, LGBTIQ and minority rights in a context of autocracy, conflict and geopolitical shifts",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Identifying user-focused solutions to support news media freedom",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Global Human Rights and EU values",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Student and family engagement for developing a culture of democratic/civic participation",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Advisory support and network for countering and preventing radicalisation, extremism, hate speech and polarisation",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-01-DEMOCRACY-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Increasing the resilience of agriculture in water and nutrient-scarce environments through digital innovations",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-02-FARM2FORK-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Prevention and management of chronic non-communicable diseases in children and young people (GACD)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Clinical trials for advancing innovative interventions for neurodegenerative diseases",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "International dimension of the circular bio-based economy: seeking win-win opportunities",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Improving analytical capacity for sustainable competitiveness of the agricultural sector",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Innovative healthcare interventions for non-communicable diseases",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-01-two-stage",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Artificial Intelligence for Cybersecurity applications",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-15",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-09-15",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Open topic on reinvigorating and shielding European democracy",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-04",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2027-02-DEMOCRACY-09-two-stage",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Addressing disabilities through the life course to support independent living and inclusion",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development of innovative antimicrobials against pathogens resistant to antimicrobials",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development of monoclonal antibodies to prevent and treat infections from Filo-, Nairo-, Phenui-, Picorna- and Toga viruses",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development of monoclonal antibodies to prevent and treat infections from Flaviviruses",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Development of predictive biomarkers of disease progression and treatment response by using AI methodologies for chronic non-communicable diseases",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-TOOL-01-two-stage",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "European Partnership for Pandemic Preparedness (Phase 2)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-04-13",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2026-03-DISEASE-13",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Large scale operational validation and upscaling of state-of-the-art (Generative) AI tools and models powering a next generation digital energy system",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-31",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-24",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Increasing knowledge flows to practice within AKIS via EU thematic knowledge hubs",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI supporting informed advice for farmers and foresters to improve competitiveness and sustainability",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Strengthening strategic advice and synergies between EU and national Research and Innovation agendas and investments",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Fostering generational renewal in agriculture via EU advisory network",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Strengthening the resilience of European farmers through improved capacity in coping with risks and crises",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-05-11",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2027-03-GOVERNANCE-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI Testing and Experimentation Facility (TEF) for the energy sector – bringing technology to the market",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-01-16",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2024-D3-01-11",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Beyond the horizon: A human-friendly deployment of artificial intelligence and related technologies",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-02-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL2-2024-TRANSFORMATIONS-01-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "AI-driven data operations and compliance technologies (AI, data and robotics partnership) (IA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-19",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2024-DATA-01-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-19",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2024-DIGITAL-EMERGING-01-04",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Novel paradigms and approaches, towards AI-powered robots– step change in functionality (AI, data and robotics partnership) (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-19",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2024-DIGITAL-EMERGING-01-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Collaborative intelligence – combining the best of machine and human (AI Data and Robotics Partnership) (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-19",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2024-HUMAN-01-07",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Explainable and Robust AI (AI Data and Robotics Partnership) (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-19",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2024-HUMAN-01-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Increased technology solutions, institutional coordination and decision-support systems for first responders of last-kilometer emergency service delivery",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-11-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2023-DRS-01-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Digital information systems for bio-based products",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-02-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2024-CircBio-01-6",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Secure Computing Continuum (IoT, Edge, Cloud, Dataspaces)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-11-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2023-CS-01-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Security of robust AI systems",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-11-23",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2023-CS-01-03",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Dedicated hardware architectures for energy-efficient AI",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-11-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2023-RA-DIGIT-HAAI",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Next generation AI and Human Behaviour: promoting an ethical approach",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-03-12",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2024-ERA-01-12",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Digital tools for CSP and solar thermal plants",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2025-01-21",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2024-D3-02-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Furthering the development of a materials acceleration platform for sustainable batteries (combining AI, big data, autonomous synthesis robotics, high throughput testing) (Batt4EU Partnership)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2024-04-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2024-D2-01-05",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Support for dissemination events in the field of Transport Research",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-10-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-06-D6-12",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Enhancing Mobility for All: affordable, reliable, and accessible multimodal transport for inclusive rural and urban connectivity – Societal Readiness pilot",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-10-07",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-06-D6-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "EU Frontier AI Initiative: Developing frontier AI solutions that are safe and computationally efficient within Apply AI (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-11",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Automated Scientific Discovery (RAISE pilot) (RIA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-02-02",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "International cooperation in AI (IA)",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2027-03-18",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06",
+      "source": "funding_tenders"
+    },
+    {
+      "title": "Deployable Autonomous AI Agent",
+      "type": "funding_opportunity",
+      "organization": "European Commission",
+      "deadline": "2023-11-22",
+      "status": "31094501",
+      "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/EDF-2023-DA-CYBER-DAAI",
+      "source": "funding_tenders"
+    }
+  ]
+}

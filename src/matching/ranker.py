@@ -1,7 +1,7 @@
-"""Opportunity ranker — batched cosine similarity retrieval.
+"""Opportunity ranker — retrieval interface.
 
-Uses a single numpy matrix multiply instead of N individual cosine calls,
-which is significantly faster for large opportunity sets.
+Delegates to a ``FAISSVectorIndex`` when one is supplied, otherwise falls back
+to the original numpy-based cosine similarity.
 """
 from __future__ import annotations
 
@@ -11,18 +11,21 @@ import numpy as np
 
 
 class OpportunityRanker:
-    """Rank opportunities against a researcher vector using cosine similarity.
+    """Rank opportunities against a researcher embedding.
 
-    Accepts the structured index records produced by
-    :func:`~src.embeddings.opportunity_index.build_opportunity_index` so the
-    ranker is fully decoupled from how opportunities were loaded or built.
+    Two modes:
+
+    1. **FAISS mode** (preferred) — pass a ``FAISSVectorIndex`` via
+       ``vector_index``; the ``index_records`` argument is ignored.
+    2. **Numpy fallback** — pass ``index_records`` (legacy behaviour).
     """
 
     def rank(
         self,
         researcher_vector: np.ndarray,
-        index_records: list[dict[str, Any]],
+        index_records: list[dict[str, Any]] | None = None,
         top_k: int | None = None,
+        vector_index: Any | None = None,
     ) -> list[dict[str, Any]]:
         """Return opportunities ranked by cosine similarity.
 
@@ -31,31 +34,35 @@ class OpportunityRanker:
         researcher_vector:
             1-D float32 array produced by the embedder.
         index_records:
-            List of structured records from ``build_opportunity_index()``.
-            Each record must have ``opportunity_id``, ``vector``, and
-            ``metadata`` keys.
+            Structured records from ``build_opportunity_index()``.  Used only
+            when *vector_index* is ``None``.
         top_k:
             When set, only the top-K results are returned.
-
-        Returns
-        -------
-        list[dict]
-            Records sorted by ``score`` (descending). Each result dict
-            contains ``opportunity_id``, ``score``, ``title``,
-            ``organization``, ``type``, ``deadline``.
+        vector_index:
+            A ``FAISSVectorIndex`` instance.  When provided it is used for
+            the search and *index_records* is ignored.
         """
+        if vector_index is not None:
+            return vector_index.search(researcher_vector, top_k=top_k or 10)
+
         if not index_records:
             return []
 
-        # Stack all opportunity vectors into a matrix (N × D).
-        matrix = np.stack([rec["vector"] for rec in index_records])  # (N, D)
+        return self._numpy_search(researcher_vector, index_records, top_k)
 
-        # Normalise both sides to get cosine similarity via dot product.
+    @staticmethod
+    def _numpy_search(
+        researcher_vector: np.ndarray,
+        index_records: list[dict[str, Any]],
+        top_k: int | None,
+    ) -> list[dict[str, Any]]:
+        matrix = np.stack([rec["vector"] for rec in index_records])
+
         query_norm = researcher_vector / (np.linalg.norm(researcher_vector) + 1e-10)
         matrix_norms = np.linalg.norm(matrix, axis=1, keepdims=True) + 1e-10
         matrix_normalized = matrix / matrix_norms
 
-        scores: np.ndarray = matrix_normalized @ query_norm  # (N,)
+        scores: np.ndarray = matrix_normalized @ query_norm
 
         results: list[dict[str, Any]] = []
         for record, score in zip(index_records, scores):
@@ -76,4 +83,4 @@ class OpportunityRanker:
         if top_k is not None:
             results = results[:top_k]
 
-        return results
+        return results
