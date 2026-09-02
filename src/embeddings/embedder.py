@@ -22,7 +22,7 @@ class Embedder:
     @property
     def embedding_dim(self) -> int:
         """Dimensionality of the embedding vectors produced by this model."""
-        return self.model.get_sentence_embedding_dimension()
+        return self.model.get_embedding_dimension()
 
     def encode(self, text: str) -> np.ndarray:
         """Encode a single text string into a float32 vector."""

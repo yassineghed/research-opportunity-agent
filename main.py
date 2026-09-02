@@ -3,16 +3,12 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 from typing import Any
-import os
-
-from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-load_dotenv(PROJECT_ROOT / ".env")
-
+from src.config import PipelineConfig
 from src.builders.opportunity.structured_opportunity_builder import StructuredOpportunityBuilder
 from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
 from src.embeddings.embedder import Embedder
@@ -23,193 +19,136 @@ from src.loaders import DataLoader
 from src.matching.ranker import OpportunityRanker
 from src.reranking.llm_reranker import LLMReranker
 
-EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
-TOP_K_RETRIEVAL = 5
-TOP_K_FINAL = 3
-
-
-def _env_flag(name: str, default: bool) -> bool:
-    value = os.getenv(name)
-    if value is None:
-        return default
-
-    return value.strip().lower() in {"1", "true", "yes", "on"}
-
 
 def _format_recommendations(recommendations: list[dict[str, Any]], opportunities_by_id: dict) -> str:
     lines: list[str] = []
+    for index, rec in enumerate(recommendations, start=1):
+        opp = opportunities_by_id.get(rec["opportunity_id"])
+        title = opp.title if opp else "Unknown"
+        org = opp.organization if opp else "Unknown"
+        score = rec.get("score", 0)
+        reason = rec.get("reason", "")
+        areas = rec.get("matching_areas", [])
 
-    for index, recommendation in enumerate(recommendations[:TOP_K_FINAL], start=1):
-        opportunity = opportunities_by_id.get(recommendation["opportunity_id"])
-        title = opportunity.title if opportunity else "Unknown opportunity"
-        organization = opportunity.organization if opportunity else "Unknown organization"
-        score = recommendation.get("score", 0)
-        reason = recommendation.get("reason", "")
-        matching_areas = recommendation.get("matching_areas", [])
-
-        lines.append(f"{index}. {title} - {organization}")
+        lines.append(f"{index}. {title} - {org}")
         lines.append(f"   Score: {score}")
-        if matching_areas:
-            lines.append(f"   Matching areas: {', '.join(matching_areas)}")
+        if areas:
+            lines.append(f"   Matching areas: {', '.join(areas)}")
         if reason:
             lines.append(f"   Reason: {reason}")
-
     return "\n".join(lines)
 
 
-def _format_retrieval_results(results: list[dict[str, Any]], opportunities_by_id: dict, limit: int) -> str:
+def _format_retrieval(results: list[dict[str, Any]], opportunities_by_id: dict) -> str:
     lines: list[str] = []
-
-    for index, item in enumerate(results[:limit], start=1):
-        opportunity = opportunities_by_id.get(item["opportunity_id"])
-        title = opportunity.title if opportunity else item["title"]
-        organization = opportunity.organization if opportunity else item["organization"]
-
-        lines.append(f"{index}. {title} - {organization}")
+    for index, item in enumerate(results, start=1):
+        opp = opportunities_by_id.get(item["opportunity_id"])
+        title = opp.title if opp else item.get("title", "Unknown")
+        org = opp.organization if opp else item.get("organization", "Unknown")
+        lines.append(f"{index}. {title} - {org}")
         lines.append(f"   Similarity: {item['score']:.3f}")
-
     return "\n".join(lines)
-
-
-def _is_provider_llm_error(exc: Exception) -> bool:
-    """Return True only for typed LLM errors that have a graceful fallback."""
-    return isinstance(exc, LLMError)
 
 
 def main() -> None:
-    allow_llm_fallback = _env_flag("LLM_ALLOW_FALLBACK", True)
+    config = PipelineConfig()
 
-    researchers = DataLoader.load_researchers(PROJECT_ROOT / "data" / "mock" / "researchers.json")
-    opportunities = DataLoader.load_opportunities(PROJECT_ROOT / "data" / "processed" / "opportunities.json")
+    researchers = DataLoader.load_researchers(config.researchers_file)
+    opportunities = DataLoader.load_opportunities(config.opportunities_file)
 
     if not researchers:
-        raise ValueError("No researchers found in mock data.")
+        raise ValueError("No researchers found.")
     if not opportunities:
-        raise ValueError("No opportunities found in mock data.")
+        raise ValueError("No opportunities found.")
 
     profile_builder = StructuredProfileBuilder()
     opportunity_builder = StructuredOpportunityBuilder()
-    embedder = Embedder(EMBEDDING_MODEL)
+    embedder = Embedder(config.embedding_model)
     ranker = OpportunityRanker()
-    gemini_client = LLMClient(provider="gemini")
-    qwen_client = LLMClient(provider="qwen")
 
     llm_rerankers = [
-        ("Gemini", LLMReranker(gemini_client)),
-        ("Qwen", LLMReranker(qwen_client)),
+        (name, LLMReranker(LLMClient(provider=name)))
+        for name in config.llm_providers
     ]
 
-    print(f"Loaded {len(researchers)} researchers and {len(opportunities)} opportunities")
-    print(f"Embedding model: {EMBEDDING_MODEL}")
-    print(f"Building opportunity index (this may take a moment)...", flush=True)
+    print(f"Loaded {len(researchers)} researchers, {len(opportunities)} opportunities")
+    print(f"Embedding model: {config.embedding_model}")
+    print(f"Building opportunity index...", flush=True)
 
-    # Build the structured embedding index — one vector per opportunity.
     index_records = build_opportunity_index(
-        opportunities,
-        opportunity_builder,
-        embedder,
-        show_progress=True,
+        opportunities, opportunity_builder, embedder, show_progress=True,
     )
     opportunities_by_id = {opp.id: opp for opp in opportunities}
 
-    print(f"Index built: {len(index_records)} records, dim={embedder.embedding_dim}")
-    print(f"Retrieval top-k: {TOP_K_RETRIEVAL} | Final top-k: {TOP_K_FINAL}")
-    print(f"LLM fallback enabled: {allow_llm_fallback}")
-    print(f"Gemini model: {gemini_client.llm.model_name}")
-    print(f"Qwen model:   {qwen_client.llm.model_name}")
+    print(f"Index: {len(index_records)} records, dim={embedder.embedding_dim}")
+    print(f"Retrieval top_k={config.top_k_retrieval}, final top_k={config.top_k_final}")
+    print(f"LLM providers: {[name for name, _ in llm_rerankers]}")
+    print(f"LLM fallback: {config.llm_allow_fallback}")
     print(flush=True)
 
-    for researcher_index, researcher in enumerate(researchers, start=1):
-        print(
-            f"[{researcher_index}/{len(researchers)}] Preparing researcher: "
-            f"{researcher.fullname} - {researcher.institution}",
-            flush=True,
-        )
-        researcher_text = profile_builder.build(researcher)
-        researcher_vector = embedder.encode(researcher_text)
+    for idx, researcher in enumerate(researchers, start=1):
+        print(f"[{idx}/{len(researchers)}] {researcher.fullname} - {researcher.institution}", flush=True)
 
-        retrieval_results = ranker.rank(
-            researcher_vector,
-            index_records,
-            top_k=TOP_K_RETRIEVAL,
-        )
-        top_candidates = retrieval_results[:TOP_K_RETRIEVAL]
-        candidate_opportunities = [opportunities_by_id[item["opportunity_id"]] for item in top_candidates]
+        researcher_vector = embedder.encode(profile_builder.build(researcher))
+        retrieval_results = ranker.rank(researcher_vector, index_records, top_k=config.top_k_retrieval)
+        top_candidates = retrieval_results[:config.top_k_retrieval]
+        candidate_opps = [opportunities_by_id[item["opportunity_id"]] for item in top_candidates]
 
         provider_results: list[tuple[str, list[dict[str, Any]], Exception | None]] = []
 
         for provider_name, reranker in llm_rerankers:
-            rerank_error: Exception | None = None
+            error: Exception | None = None
             recommendations: list[dict[str, Any]] = []
 
             try:
-                print(
-                    f"[{researcher_index}/{len(researchers)}] Requesting {provider_name} rerank "
-                    f"for {researcher.fullname} with {len(candidate_opportunities)} candidates...",
-                    flush=True,
-                )
-                reranked = reranker.rerank(researcher, candidate_opportunities)
-                recommendations = reranked.get("recommendations", [])
+                reranked = reranker.rerank(researcher, candidate_opps)
                 recommendations = sorted(
-                    recommendations,
-                    key=lambda item: item.get("score", 0),
+                    reranked.get("recommendations", []),
+                    key=lambda r: r.get("score", 0),
                     reverse=True,
-                )[:TOP_K_FINAL]
-                print(
-                    f"[{researcher_index}/{len(researchers)}] {provider_name} rerank completed.",
-                    flush=True,
-                )
+                )[:config.top_k_final]
             except Exception as exc:
-                if not _is_provider_llm_error(exc):
+                if not isinstance(exc, LLMError):
                     raise
-
-                rerank_error = exc
-                print(
-                    f"[{researcher_index}/{len(researchers)}] {provider_name} rerank failed: {exc}",
-                    flush=True,
-                )
-                if allow_llm_fallback:
+                error = exc
+                print(f"  {provider_name} failed: {exc}", flush=True)
+                if config.llm_allow_fallback:
                     recommendations = [
                         {
                             "opportunity_id": item["opportunity_id"],
                             "score": round(item["score"] * 100, 0),
-                            "reason": f"{provider_name} unavailable; using cosine similarity fallback.",
+                            "reason": f"{provider_name} unavailable; cosine fallback.",
                             "matching_areas": [],
                         }
-                        for item in top_candidates[:TOP_K_FINAL]
+                        for item in top_candidates[:config.top_k_final]
                     ]
 
-            provider_results.append((provider_name, recommendations, rerank_error))
+            provider_results.append((provider_name, recommendations, error))
 
-        retrieval_top_3 = top_candidates[:TOP_K_FINAL]
-        retrieval_ids = [item["opportunity_id"] for item in retrieval_top_3]
+        retrieval_top = top_candidates[:config.top_k_final]
+        retrieval_ids = [item["opportunity_id"] for item in retrieval_top]
 
         print("=" * 80)
         print(f"Researcher: {researcher.fullname} - {researcher.institution}")
-
         print("\nTop 3 cosine similarity:")
-        print(_format_retrieval_results(retrieval_top_3, opportunities_by_id, TOP_K_FINAL))
+        print(_format_retrieval(retrieval_top, opportunities_by_id))
 
-        for provider_name, recommendations, rerank_error in provider_results:
-            rerank_ids = [item["opportunity_id"] for item in recommendations]
+        for provider_name, recommendations, error in provider_results:
+            rerank_ids = [r["opportunity_id"] for r in recommendations]
             overlap = len(set(retrieval_ids) & set(rerank_ids))
 
             print(f"\nTop 3 after {provider_name} reranking:")
             if recommendations:
                 print(_format_recommendations(recommendations, opportunities_by_id))
             else:
-                print("No valid recommendations returned by the LLM.")
+                print("No valid recommendations returned.")
 
-            if rerank_error is not None:
-                print()
-                print(f"{provider_name} error: {rerank_error}")
-                if allow_llm_fallback:
-                    print("Displayed cosine fallback for this researcher.")
-                else:
-                    print("No cosine fallback displayed because LLM fallback is disabled.")
+            if error is not None:
+                print(f"  {provider_name} error: {error}")
+                if config.llm_allow_fallback:
+                    print("  Cosine fallback displayed.")
 
-            print()
-            print(f"Overlap between cosine top 3 and {provider_name} top 3: {overlap}/3")
+            print(f"\nOverlap cosine vs {provider_name}: {overlap}/3")
         print()
 
 
