@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -73,7 +74,7 @@ def main() -> None:
 
     print(f"Loaded {len(researchers)} researchers, {len(opportunities)} opportunities")
     print(f"Embedding model: {config.embedding_model}")
-    print(f"Building opportunity index...", flush=True)
+    print("Building opportunity index...", flush=True)
 
     index_records = build_opportunity_index(
         opportunities, opportunity_builder, embedder, show_progress=True,
@@ -86,6 +87,12 @@ def main() -> None:
     print(f"LLM fallback: {config.llm_allow_fallback}")
     print(flush=True)
 
+    # Per-provider stats
+    provider_stats: dict[str, dict[str, Any]] = {
+        name: {"calls": 0, "errors": 0, "total_seconds": 0.0}
+        for name, _ in llm_rerankers
+    }
+
     for idx, researcher in enumerate(researchers, start=1):
         print(f"[{idx}/{len(researchers)}] {researcher.fullname} - {researcher.institution}", flush=True)
 
@@ -94,14 +101,17 @@ def main() -> None:
         top_candidates = retrieval_results[:config.top_k_retrieval]
         candidate_opps = [opportunities_by_id[item["opportunity_id"]] for item in top_candidates]
 
-        provider_results: list[tuple[str, list[dict[str, Any]], Exception | None]] = []
+        provider_results: list[tuple[str, list[dict[str, Any]], Exception | None, float]] = []
 
         for provider_name, reranker in llm_rerankers:
             error: Exception | None = None
             recommendations: list[dict[str, Any]] = []
+            elapsed = 0.0
 
             try:
+                t0 = time.perf_counter()
                 reranked = reranker.rerank(researcher, candidate_opps)
+                elapsed = time.perf_counter() - t0
                 recommendations = sorted(
                     reranked.get("recommendations", []),
                     key=lambda r: r.get("score", 0),
@@ -123,7 +133,12 @@ def main() -> None:
                         for item in top_candidates[:config.top_k_final]
                     ]
 
-            provider_results.append((provider_name, recommendations, error))
+            provider_stats[provider_name]["calls"] += 1
+            provider_stats[provider_name]["total_seconds"] += elapsed
+            if error is not None:
+                provider_stats[provider_name]["errors"] += 1
+
+            provider_results.append((provider_name, recommendations, error, elapsed))
 
         retrieval_top = top_candidates[:config.top_k_final]
         retrieval_ids = [item["opportunity_id"] for item in retrieval_top]
@@ -133,11 +148,11 @@ def main() -> None:
         print("\nTop 3 cosine similarity:")
         print(_format_retrieval(retrieval_top, opportunities_by_id))
 
-        for provider_name, recommendations, error in provider_results:
+        for provider_name, recommendations, error, elapsed in provider_results:
             rerank_ids = [r["opportunity_id"] for r in recommendations]
             overlap = len(set(retrieval_ids) & set(rerank_ids))
 
-            print(f"\nTop 3 after {provider_name} reranking:")
+            print(f"\nTop 3 after {provider_name} reranking ({elapsed:.1f}s):")
             if recommendations:
                 print(_format_recommendations(recommendations, opportunities_by_id))
             else:
@@ -150,6 +165,18 @@ def main() -> None:
 
             print(f"\nOverlap cosine vs {provider_name}: {overlap}/3")
         print()
+
+    # Summary
+    print("=" * 80)
+    print("PROVIDER SUMMARY")
+    print("=" * 80)
+    for name, stats in provider_stats.items():
+        avg = stats["total_seconds"] / stats["calls"] if stats["calls"] else 0
+        print(
+            f"  {name}: {stats['calls']} calls, "
+            f"{stats['errors']} errors, "
+            f"avg {avg:.1f}s/call"
+        )
 
 
 if __name__ == "__main__":
