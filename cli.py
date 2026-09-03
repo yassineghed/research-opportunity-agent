@@ -1,9 +1,9 @@
 """CLI entry point for the recommendation agent.
 
 Usage:
-    python -m cli query <researcher_id> [--json]
-    python -m cli list-researchers
-    python -m cli list-opportunities
+    python cli.py query <researcher_id> [--json] [--index-dir DIR]
+    python cli.py list-researchers
+    python cli.py list-opportunities
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
-from src.agent import RecommendationAgent, RecommendationItem, RecommendationResult
+from src.agent import RecommendationAgent
 from src.config import PipelineConfig
 
 logging.basicConfig(
@@ -26,10 +26,13 @@ logging.basicConfig(
 )
 
 
-def build_agent(config: PipelineConfig) -> RecommendationAgent:
+def build_agent(config: PipelineConfig, index_dir: str | None = None) -> RecommendationAgent:
     agent = RecommendationAgent(config)
     agent.load_data()
-    agent.build_index()
+    if index_dir and Path(index_dir).exists():
+        agent.load_index(index_dir)
+    else:
+        agent.build_index()
     return agent
 
 
@@ -67,6 +70,7 @@ def cmd_list_opportunities(agent, args) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog="research-opportunity-agent")
+    parser.add_argument("--index-dir", type=str, metavar="DIR", default=None, help="Load a pre-built FAISS index from DIR")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_query = sub.add_parser("query", help="Get recommendations for a researcher")
@@ -83,7 +87,7 @@ def main() -> None:
     args = parser.parse_args()
 
     config = PipelineConfig()
-    agent = build_agent(config)
+    agent = build_agent(config, index_dir=args.index_dir)
     args.func(agent, args)
 
 
