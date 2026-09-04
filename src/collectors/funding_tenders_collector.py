@@ -1,6 +1,7 @@
 import requests
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict
 from datetime import datetime
 from html import unescape
@@ -9,6 +10,7 @@ from typing import List, Dict, Any, Optional
 
 from src.loaders import DataLoader
 from src.processors import OpportunityProcessor
+from src.search.profile_terms import extract_profile_terms
 
 
 class FundingTendersCollector:
@@ -713,6 +715,45 @@ class FundingTendersCollector:
         raw_opportunities = self.collect(text)
         return OpportunityProcessor.process_many(
             raw_opportunities,
+            source="funding_tenders",
+        )
+
+    def search_for_profile(
+        self,
+        researcher,
+        max_terms: int = 8,
+        max_workers: int = 4,
+    ):
+        """Search one API page per prioritized profile term.
+
+        This bounded refresh is intended for interactive use. The existing
+        ``collect`` method remains responsible for complete offline crawls.
+        """
+        terms = extract_profile_terms(researcher, max_terms=max_terms)
+        if not terms:
+            return []
+
+        def search_term(term: str):
+            return self.search(text=term, page_number=1).get("results", [])
+
+        raw_by_id: dict[str, dict[str, Any]] = {}
+        worker_count = min(max_workers, len(terms))
+        with ThreadPoolExecutor(max_workers=worker_count) as executor:
+            futures = {executor.submit(search_term, term): term for term in terms}
+            for future in as_completed(futures):
+                try:
+                    results = future.result()
+                except requests.RequestException:
+                    continue
+
+                for result in results:
+                    opportunity = self.parse_result(result)
+                    if opportunity and opportunity.get("id") is not None:
+                        opportunity_id = str(opportunity["id"]).strip()
+                        raw_by_id.setdefault(opportunity_id, opportunity)
+
+        return OpportunityProcessor.process_many(
+            list(raw_by_id.values()),
             source="funding_tenders",
         )
 

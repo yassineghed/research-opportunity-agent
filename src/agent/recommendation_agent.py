@@ -13,6 +13,7 @@ from typing import Any, Optional
 from src.agent.models import RecommendationItem, RecommendationResult
 from src.builders.opportunity.structured_opportunity_builder import StructuredOpportunityBuilder
 from src.builders.profil.structured_profil_builder import StructuredProfileBuilder
+from src.collectors.funding_tenders_collector import FundingTendersCollector
 from src.config import PipelineConfig
 from src.embeddings.embedder import Embedder
 from src.embeddings.opportunity_index import build_opportunity_index
@@ -20,6 +21,7 @@ from src.llm.client import LLMClient
 from src.llm.errors import LLMError
 from src.loaders import DataLoader
 from src.reranking.llm_reranker import LLMReranker
+from src.search.profile_terms import extract_profile_terms
 from src.vector_store.faiss_vector_index import FAISSVectorIndex
 
 logger = logging.getLogger(__name__)
@@ -173,6 +175,60 @@ class RecommendationAgent:
         """Return recommendations for an ad-hoc researcher object/profile."""
         return self._recommend(researcher)
 
+    def refresh_for_profile(
+        self,
+        researcher: Any,
+        max_terms: int = 8,
+        max_workers: int = 4,
+    ) -> dict[str, Any]:
+        """Fetch profile-specific F&T results and refresh the local index."""
+        collector = FundingTendersCollector()
+        fetched = collector.search_for_profile(
+            researcher,
+            max_terms=max_terms,
+            max_workers=max_workers,
+        )
+
+        existing_by_id = {
+            str(opportunity.id).strip(): opportunity
+            for opportunity in self.opportunities
+        }
+        changed = False
+        added = 0
+        updated = 0
+
+        for opportunity in fetched:
+            opportunity_id = str(opportunity.id).strip()
+            existing = existing_by_id.get(opportunity_id)
+            if existing is None:
+                self.opportunities.append(opportunity)
+                existing_by_id[opportunity_id] = opportunity
+                added += 1
+                changed = True
+            elif existing != opportunity:
+                index = self.opportunities.index(existing)
+                self.opportunities[index] = opportunity
+                existing_by_id[opportunity_id] = opportunity
+                updated += 1
+                changed = True
+
+        if changed:
+            self.opportunities_by_id = {
+                opportunity.id: opportunity for opportunity in self.opportunities
+            }
+            self.build_index(
+                show_progress=False,
+                persist_dir=self.config.index_persist_path,
+            )
+
+        return {
+            "terms": extract_profile_terms(researcher, max_terms=max_terms),
+            "fetched": len(fetched),
+            "added": added,
+            "updated": updated,
+            "index_refreshed": changed,
+        }
+
     def _recommend(self, researcher: Any) -> RecommendationResult:
         if not self._index_built or self.vector_index is None:
             raise RuntimeError("Index not built — call build_index() or load_index() first.")
@@ -189,11 +245,11 @@ class RecommendationAgent:
             top_k=self.config.top_k_retrieval,
         )
         top_candidates = retrieval_results[: self.config.top_k_retrieval]
-        candidate_opps = [
-            self.opportunities_by_id[item["opportunity_id"]]
-            for item in top_candidates
-            if item["opportunity_id"] in self.opportunities_by_id
-        ]
+        candidate_opps = []
+        for item in top_candidates:
+            opportunity = self._find_opportunity(item["opportunity_id"])
+            if opportunity is not None:
+                candidate_opps.append(opportunity)
 
         retrieval_top = self._to_items(top_candidates[: self.config.top_k_final])
 
@@ -270,7 +326,7 @@ class RecommendationAgent:
     ) -> list[RecommendationItem]:
         items: list[RecommendationItem] = []
         for item in top_candidates[:top_k]:
-            opp = self.opportunities_by_id.get(item["opportunity_id"])
+            opp = self._find_opportunity(item["opportunity_id"])
             items.append(
                 RecommendationItem(
                     opportunity_id=item["opportunity_id"],
@@ -292,7 +348,7 @@ class RecommendationAgent:
         items: list[RecommendationItem] = []
         for r in results:
             opp_id = r.get("opportunity_id")
-            opp = self.opportunities_by_id.get(opp_id)
+            opp = self._find_opportunity(opp_id)
             items.append(
                 RecommendationItem(
                     opportunity_id=opp_id,
@@ -308,3 +364,15 @@ class RecommendationAgent:
                 )
             )
         return items
+
+    def _find_opportunity(self, opportunity_id: Any) -> Any | None:
+        """Resolve IDs from LLM/index output without losing opportunity metadata."""
+        opportunity = self.opportunities_by_id.get(opportunity_id)
+        if opportunity is not None:
+            return opportunity
+
+        normalized_id = str(opportunity_id).strip()
+        for candidate in self.opportunities:
+            if str(candidate.id).strip() == normalized_id:
+                return candidate
+        return None

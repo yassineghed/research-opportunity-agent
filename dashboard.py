@@ -11,6 +11,8 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.agent import RecommendationAgent
 from src.config import PipelineConfig
+from src.models.researcher import Researcher
+from src.profile import CVProfileExtractor, extract_document_text
 
 
 st.set_page_config(
@@ -77,6 +79,10 @@ def render_opportunity(item) -> None:
         st.link_button("Open opportunity", item.url)
 
 
+def parse_list(value: str) -> list[str]:
+    return [item.strip() for item in value.replace(",", "\n").splitlines() if item.strip()]
+
+
 st.markdown(
     '<div class="hero"><div class="eyebrow">Research intelligence</div>'
     '<h1>Find the work that fits.</h1>'
@@ -92,25 +98,164 @@ except Exception as exc:
 
 with st.sidebar:
     st.markdown("## Research Opportunity Agent")
-    st.caption("Select a profile to explore its strongest matches.")
-    researcher_labels = {
-        f"{researcher.fullname} | {researcher.institution}": researcher.id
-        for researcher in agent.researchers
-    }
-    selected_label = st.selectbox("Researcher", list(researcher_labels))
-    selected_researcher = agent.researchers_by_id[researcher_labels[selected_label]]
-    st.divider()
-    st.markdown("**Profile focus**")
-    st.write(", ".join(selected_researcher.research_domains) or "No domains listed")
-    st.caption("Change data or index settings in `.env`, then use the app menu to clear the cache.")
+    st.caption("Add your research profile to explore relevant opportunities.")
+    manual_tab, cv_tab = st.tabs(["Manual profile", "Upload CV"])
+    with manual_tab:
+        with st.form("researcher_profile"):
+            fullname = st.text_input("Full name", key="profile_fullname")
+            institution = st.text_input("Institution", key="profile_institution")
+            research_domains = st.text_area(
+                "Research domains",
+                placeholder="Machine learning, climate science",
+                key="profile_domains",
+            )
+            research_interests = st.text_area(
+                "Research interests",
+                placeholder="Use commas or one item per line",
+                key="profile_interests",
+            )
+            skills = st.text_area(
+                "Skills",
+                placeholder="Python, remote sensing, statistical modelling",
+                key="profile_skills",
+            )
+            keywords = st.text_area(
+                "Keywords",
+                placeholder="Use commas or one item per line",
+                key="profile_keywords",
+            )
+            publications = st.text_area(
+                "Publications",
+                placeholder="One publication per line",
+                key="profile_publications",
+            )
+            submitted = st.form_submit_button("Save profile", use_container_width=True)
+    with cv_tab:
+        uploaded_cv = st.file_uploader("CV document", type=["pdf", "docx", "txt"])
+        extract_submitted = st.button("Extract profile", use_container_width=True)
+        st.caption("The document is processed in memory and is not saved by the dashboard.")
+    if st.button("Clear profile", use_container_width=True):
+        for key in (
+            "profile",
+            "profile_source",
+            "result",
+            "refresh_summary",
+            "researcher_id",
+            "profile_fullname",
+            "profile_institution",
+            "profile_domains",
+            "profile_interests",
+            "profile_skills",
+            "profile_keywords",
+            "profile_publications",
+        ):
+            st.session_state.pop(key, None)
+        st.rerun()
 
-if st.button("Generate recommendations", type="primary", use_container_width=True):
-    st.session_state["result"] = agent.query(selected_researcher.id)
-    st.session_state["researcher_id"] = selected_researcher.id
+if submitted:
+    domains = parse_list(research_domains)
+    if not fullname.strip() or not institution.strip() or not domains:
+        st.sidebar.error("Please provide your name, institution, and at least one research domain.")
+    else:
+        selected_researcher = Researcher(
+            id="manual-profile",
+            fullname=fullname.strip(),
+            institution=institution.strip(),
+            research_domains=domains,
+            research_interests=parse_list(research_interests),
+            skills=parse_list(skills),
+            keywords=parse_list(keywords),
+            publications=parse_list(publications),
+        )
+        st.session_state["profile"] = selected_researcher
+        st.session_state["profile_source"] = "Manual entry"
+        st.session_state.pop("result", None)
+        st.session_state.pop("refresh_summary", None)
+        st.sidebar.success("Profile saved. Review it, then generate recommendations.")
+
+if extract_submitted:
+    if uploaded_cv is None:
+        st.sidebar.error("Upload a PDF, DOCX, or TXT CV first.")
+    else:
+        try:
+            cv_text = extract_document_text(uploaded_cv.name, uploaded_cv.getvalue())
+            extracted_profile = CVProfileExtractor().extract(cv_text)
+            st.session_state["profile"] = extracted_profile
+            st.session_state["profile_source"] = uploaded_cv.name
+            st.session_state.pop("result", None)
+            st.session_state.pop("refresh_summary", None)
+            st.sidebar.success("Profile extracted. Review it before generating recommendations.")
+        except Exception as exc:
+            st.sidebar.error(f"CV extraction failed: {exc}")
+
+selected_researcher = st.session_state.get("profile")
+
+result = st.session_state.get("result")
+if selected_researcher is None:
+    st.info("Complete your profile or upload a CV to begin.")
+    st.stop()
+
+st.markdown("### Extracted profile" if st.session_state.get("profile_source", "").lower().endswith((".pdf", ".docx", ".txt")) else "### Researcher profile")
+st.caption(f"Source: {st.session_state.get('profile_source', 'Manual entry')}")
+with st.expander("Review profile data", expanded=True):
+    profile_columns = st.columns(2)
+    profile_columns[0].markdown(f"**Name**  \n{selected_researcher.fullname}")
+    profile_columns[1].markdown(f"**Institution**  \n{selected_researcher.institution}")
+    profile_columns[0].markdown(
+        "**Research domains**  \n" + ", ".join(selected_researcher.research_domains)
+    )
+    profile_columns[1].markdown(
+        "**Research interests**  \n" + (", ".join(selected_researcher.research_interests) or "Not provided")
+    )
+    profile_columns[0].markdown(
+        "**Skills**  \n" + (", ".join(selected_researcher.skills) or "Not provided")
+    )
+    profile_columns[1].markdown(
+        "**Keywords**  \n" + (", ".join(selected_researcher.keywords) or "Not provided")
+    )
+    st.markdown(
+        "**Publications**  \n" + ("  \n".join(selected_researcher.publications) or "Not provided")
+    )
+
+refresh_col, recommend_col = st.columns(2)
+with refresh_col:
+    refresh_requested = st.button(
+        "Search newer F&T opportunities",
+        use_container_width=True,
+        help="Search the Funding & Tenders Portal using your research domains and interests.",
+    )
+with recommend_col:
+    recommend_requested = st.button(
+        "Generate recommendations",
+        type="primary",
+        use_container_width=True,
+    )
+
+if refresh_requested:
+    with st.spinner("Searching the Funding & Tenders Portal..."):
+        refresh_summary = agent.refresh_for_profile(selected_researcher)
+        st.session_state["refresh_summary"] = refresh_summary
+        st.session_state["result"] = agent.query_from_profile(selected_researcher)
+        st.session_state["researcher_id"] = selected_researcher.id
+
+if st.session_state.get("refresh_summary"):
+    summary = st.session_state["refresh_summary"]
+    if summary["index_refreshed"]:
+        st.success(
+            f"Found {summary['fetched']} profile-specific opportunities; "
+            f"added {summary['added']} new opportunities to the index."
+        )
+    else:
+        st.info("No new profile-specific opportunities were found.")
+
+if recommend_requested:
+    with st.spinner("Finding relevant opportunities..."):
+        st.session_state["result"] = agent.query_from_profile(selected_researcher)
+        st.session_state["researcher_id"] = selected_researcher.id
 
 result = st.session_state.get("result")
 if result is None or st.session_state.get("researcher_id") != selected_researcher.id:
-    st.info("Choose a researcher and generate recommendations to begin.")
+    st.info("Review your profile, then generate recommendations.")
     st.stop()
 
 metric_columns = st.columns(4)

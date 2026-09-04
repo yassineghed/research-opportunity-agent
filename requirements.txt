@@ -8,4 +8,6 @@ requests
 google-genai
 openai
 streamlit
+pypdf
+python-docx
 tqdm
